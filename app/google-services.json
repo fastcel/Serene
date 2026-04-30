@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "220488927653",
+    "project_id": "serene-59d1e",
+    "storage_bucket": "serene-59d1e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220488927653:android:b46b3ceb0616bb45a9004c",
+        "android_client_info": {
+          "package_name": "com.example.serene"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu8FSiDQMwXh2WkCSYDJlyinDYT3K2W-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
