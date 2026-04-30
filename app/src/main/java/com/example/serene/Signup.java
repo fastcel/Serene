@@ -75,9 +75,14 @@ public class Signup extends AppCompatActivity {
 
                     if (task.isSuccessful()) {
 
+                        String uid = auth.getCurrentUser().getUid();
+
+                        // SAVE TO SQLITE
+                        DBHelper dbHelper = new DBHelper(Signup.this);
+                        dbHelper.insertUser(uid, username, email);
+
                         Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
 
-                        // go to login OR home
                         Intent intent = new Intent(Signup.this, Login.class);
                         startActivity(intent);
                         finish();

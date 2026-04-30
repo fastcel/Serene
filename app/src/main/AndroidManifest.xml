@@ -14,15 +14,15 @@
         <activity
             android:name=".UserDashboard"
             android:exported="false" />
-        <activity
-            android:name=".Signup"
-            android:exported="false" />
-
 <!--        <activity-->
-<!--            android:name=".Login"-->
+<!--            android:name=".Signup"-->
 <!--            android:exported="false" />-->
+
         <activity
             android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Signup"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
