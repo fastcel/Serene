@@ -252,7 +252,7 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Google Login Successful", Toast.LENGTH_SHORT).show();
 
-                        startActivity(new Intent(this, UserDashboard.class));
+                        startActivity(new Intent(this, HomeActivity.class));
                         finish();
 
                     } else {
