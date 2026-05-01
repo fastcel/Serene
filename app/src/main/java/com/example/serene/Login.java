@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,12 +24,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.gms.auth.api.signin.*;
+import com.google.android.gms.common.api.ApiException;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.AuthCredential;
 
 public class Login extends AppCompatActivity {
 
     private TextInputEditText etEmail, etPassword;
     private MaterialButton btnSignIn;
     TextView tvSignup;
+    private GoogleSignInClient googleSignInClient;
+    private static final int RC_SIGN_IN = 100;
+    MaterialButton btnGoogle;
 
 
     private FirebaseAuth auth;
@@ -45,10 +53,17 @@ public class Login extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
+        btnGoogle = findViewById(R.id.btnGoogle);
 
         // Click listener
         btnSignIn.setOnClickListener(v -> loginUser());
         tvSignup = findViewById(R.id.tvSignup1);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
         String text = "No account? Sign Up";
@@ -62,14 +77,11 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         };
-
-// Apply click ONLY on "Sign Up"
         spannable.setSpan(clickableSpan,
                 text.indexOf("Sign Up"),
                 text.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-// Optional: make "Sign Up" look like a link
         spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#A020F0")),
                 text.indexOf("Sign Up"),
                 text.length(),
@@ -78,6 +90,11 @@ public class Login extends AppCompatActivity {
         tvSignup.setText(spannable);
         tvSignup.setMovementMethod(LinkMovementMethod.getInstance());
         tvSignup.setHighlightColor(Color.TRANSPARENT);
+
+        btnGoogle.setOnClickListener(v -> {
+            Intent signInIntent = googleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        });
 
     }
 
@@ -113,6 +130,43 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this,
                                 "Login Failed: " + task.getException().getMessage(),
                                 Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                firebaseAuthWithGoogle(account.getIdToken());
+
+            } catch (ApiException e) {
+                Toast.makeText(this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Google Login Successful", Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(this, UserDashboard.class));
+                        finish();
+
+                    } else {
+                        Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

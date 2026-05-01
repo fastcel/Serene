@@ -12,7 +12,20 @@
           "package_name": "com.example.serene"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "220488927653-qsldp8i7bdkgjol8u7kjrk57kvpsmrs8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.serene",
+            "certificate_hash": "3d1c6a10f76d0c2959b55f7aa333d27f70e9b067"
+          }
+        },
+        {
+          "client_id": "220488927653-h11ld1kv68vr9sjvmrm5c60iv8hi6qbh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDu8FSiDQMwXh2WkCSYDJlyinDYT3K2W-A"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220488927653-h11ld1kv68vr9sjvmrm5c60iv8hi6qbh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
