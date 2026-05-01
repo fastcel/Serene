@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp">
+
+    <!-- Label: Fixed width of 72dp -->
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:text="label"
+        android:textColor="@android:color/black"
+        android:textSize="13sp"
+        android:gravity="end"
+        android:paddingEnd="8dp"/>
+
+    <!-- Left arrow: Unified size to 48dp (standard touch target) -->
+    <ImageButton
+        android:id="@+id/btnPrev"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/arrowleft"
+        android:background="@android:color/transparent"
+        android:padding="12dp"
+        android:contentDescription="Previous"/>
+
+    <!-- Value display: Weight 1 takes up remaining space -->
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tvValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="None"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:visibility="visible"/>
+
+        <View
+            android:id="@+id/viewColorSwatch"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_color_swatch"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <!-- Right arrow: Matched size to btnPrev -->
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/arrowright"
+        android:background="@android:color/transparent"
+        android:padding="12dp"
+        android:contentDescription="Next"/>
+
+    <!-- Invisible Spacer: This "mirrors" the 72dp label on the left
+         to push the center content back to the true center -->
+    <View
+        android:layout_width="72dp"
+        android:layout_height="0dp" />
+
+</LinearLayout>
