@@ -10,6 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import android.content.Intent;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.TextView;
 
 public class Signup extends AppCompatActivity {
 
@@ -17,6 +26,7 @@ public class Signup extends AppCompatActivity {
 
     private TextInputEditText etUsername, etEmail, etPassword, etConfirmPassword;
     private MaterialButton btnCreateAccount;
+    TextView tvLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +42,37 @@ public class Signup extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        tvLogin = findViewById(R.id.tvLogin1);
 
         btnCreateAccount.setOnClickListener(v -> registerUser());
+
+        String text = "Already have an account? Login";
+
+        SpannableString spannable = new SpannableString(text);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(Signup.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        };
+
+        spannable.setSpan(clickableSpan,
+                text.indexOf("Login"),
+                text.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+// Make "Login" purple (or any color)
+        spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#A020F0")),
+                text.indexOf("Login"),
+                text.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        tvLogin.setText(spannable);
+        tvLogin.setMovementMethod(LinkMovementMethod.getInstance());
+        tvLogin.setHighlightColor(Color.TRANSPARENT);
     }
 
     private void registerUser() {
