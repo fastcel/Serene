@@ -64,7 +64,7 @@ public class Signup extends AppCompatActivity {
                 text.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-// Make "Login" purple (or any color)
+
         spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#A020F0")),
                 text.indexOf("Login"),
                 text.length(),
@@ -122,7 +122,7 @@ public class Signup extends AppCompatActivity {
 
                         Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(Signup.this, Login.class);
+                        Intent intent = new Intent(Signup.this, AvatarSelectionActivity.class);
                         startActivity(intent);
                         finish();
 

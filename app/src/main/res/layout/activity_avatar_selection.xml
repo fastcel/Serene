@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    android:padding="24dp">
+
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create your avatar"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use the arrows to customise"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:layout_marginTop="2dp"/>
+
+
+    <!-- CENTER AREA -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Avatar -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardAvatarPreview"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.example.serene.AvatarView
+                    android:id="@+id/avatarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Controls -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_controls_rounded"
+            android:padding="12dp">
+
+            <!-- Accessory -->
+            <include
+                android:id="@+id/rowAccessory"
+                layout="@layout/item_avatar_control"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/blue"
+                android:layout_marginHorizontal="8dp"/>
+
+            <!-- Face -->
+            <include
+                android:id="@+id/rowFace"
+                layout="@layout/item_avatar_control"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/blue"
+                android:layout_marginHorizontal="8dp"/>
+
+            <!-- Color -->
+            <include
+                android:id="@+id/rowColor"
+                layout="@layout/item_avatar_control"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- BUTTONS -->
+    <Button
+        android:id="@+id/btnLetsGo"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Let's go!"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:background="@drawable/bg_button_primary"
+        android:stateListAnimator="@null"/>
+
+    <Button
+        android:id="@+id/btnSkip"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Skip for now"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="6dp"/>
+
+</LinearLayout>
