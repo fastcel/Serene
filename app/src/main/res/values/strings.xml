@@ -2,6 +2,7 @@
     <string name="app_name">Serene</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id">220488927653-h11ld1kv68vr9sjvmrm5c60iv8hi6qbh.apps.googleusercontent.com</string>
     <string name="home">Home</string>
     <string name="journal">Journal</string>
     <string name="goals">Goals</string>
