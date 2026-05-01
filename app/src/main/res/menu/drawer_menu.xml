@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group_main" android:checkableBehavior="single">
+        <item android:id="@+id/nav_home"
+            android:title="@string/home"
+            android:icon="@drawable/home" />
+        <item android:id="@+id/nav_journal"
+            android:title="@string/journal"
+            android:icon="@drawable/journalling"/>
+        <item android:id="@+id/nav_goals"
+            android:title="@string/goals"
+            android:icon="@drawable/goals"/>
+        <item android:id="@+id/nav_insights"
+            android:title="@string/insights"
+            android:icon="@drawable/insights"/>
+        <item android:id="@+id/nav_focus"
+            android:title="@string/focus"
+            android:icon="@drawable/focus"/>
+    </group>
+
+    <group android:id="@+id/group_settings" android:checkableBehavior="single">
+        <item android:id="@+id/nav_settings"
+            android:title="@string/settings"
+            android:icon="@drawable/settings"/>
+    </group>
+
+    <group android:id="@+id/group_logout" android:checkableBehavior="single">
+        <item android:id="@+id/nav_logout"
+            android:title="@string/sign_out"
+            android:icon="@drawable/logout"/>
+    </group>
+
+</menu>

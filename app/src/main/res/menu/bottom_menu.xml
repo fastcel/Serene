@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/home"
+            android:icon="@drawable/home" />
+
+        <item
+            android:id="@+id/nav_journal"
+            android:title="@string/journal"
+            android:icon="@drawable/journalling"/>
+
+        <item
+            android:id="@+id/nav_goals"
+            android:title="@string/goals"
+            android:icon="@drawable/goals"/>
+
+        <item
+            android:id="@+id/nav_insights"
+            android:title="@string/insights"
+            android:icon="@drawable/insights"/>
+
+        <item
+            android:id="@+id/nav_focus"
+            android:title="@string/focus"
+            android:icon="@drawable/focus"/>
+
+    </group>
+
+</menu>

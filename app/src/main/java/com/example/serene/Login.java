@@ -212,7 +212,7 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                         // TODO: move to dashboard
-                        Intent intent = new Intent(Login.this, UserDashboard.class);
+                        Intent intent = new Intent(Login.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
 
