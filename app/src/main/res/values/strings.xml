@@ -2,4 +2,13 @@
     <string name="app_name">Serene</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="journal">Journal</string>
+    <string name="goals">Goals</string>
+    <string name="insights">Insights</string>
+    <string name="focus">Focus</string>
+    <string name="empty" />
+    <string name="settings">Settings</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="right_arrow"><![CDATA[>]]></string>
 </resources>

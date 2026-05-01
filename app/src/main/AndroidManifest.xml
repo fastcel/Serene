@@ -15,7 +15,7 @@
             android:name=".OnboardingScreen"
             android:exported="false" />
         <activity
-            android:name=".UserDashboard"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".Signup"

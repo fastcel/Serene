@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Selected state -->
+    <item android:state_checked="true">
+        <layer-list>
+
+            <!-- Transparent background -->
+            <item>
+                <shape>
+                    <solid android:color="#10A0C4FF"/>
+                </shape>
+            </item>
+
+            <!-- Left vertical line -->
+            <item android:width="4dp" android:gravity="start">
+                <shape>
+                    <gradient
+                        android:startColor="#7C4DFF"
+                        android:endColor="#82B1FF"
+                        android:angle="270"/>
+                    <corners android:radius="2dp"/>
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+
+    <!-- Default state -->
+    <item>
+        <color android:color="@android:color/transparent"/>
+    </item>
+
+</selector>
