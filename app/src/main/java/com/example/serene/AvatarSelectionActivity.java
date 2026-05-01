@@ -17,6 +17,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.serene.databinding.ActivityAvatarSelectionBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AvatarSelectionActivity extends AppCompatActivity {
 
@@ -44,11 +47,22 @@ public class AvatarSelectionActivity extends AppCompatActivity {
         Button btnSkip = findViewById(R.id.btnSkip);
 
         View.OnClickListener goToHome = v -> {
+
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+            DatabaseReference ref = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(uid)
+                    .child("avatar");
+
+            ref.child("face").setValue(faces[faceIndex]);
+            ref.child("accessory").setValue(accessories[accessoryIndex]);
+            ref.child("color").setValue(colors[colorIndex]);
+
             Intent intent = new Intent(AvatarSelectionActivity.this, HomeActivity.class);
             startActivity(intent);
-            finish(); // optional: removes this screen from back stack
+            finish();
         };
-
         btnLetsGo.setOnClickListener(goToHome);
         btnSkip.setOnClickListener(goToHome);
 

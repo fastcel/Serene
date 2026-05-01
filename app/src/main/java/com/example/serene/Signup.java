@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableString;
@@ -19,6 +22,9 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Signup extends AppCompatActivity {
 
@@ -116,17 +122,23 @@ public class Signup extends AppCompatActivity {
 
                         String uid = auth.getCurrentUser().getUid();
 
-                        // SAVE TO SQLITE
-                        DBHelper dbHelper = new DBHelper(Signup.this);
-                        dbHelper.insertUser(uid, username, email);
+                        DatabaseReference ref = FirebaseDatabase.getInstance()
+                                .getReference("users")
+                                .child(uid);
+
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("username", username);
+                        user.put("email", email);
+
+                        ref.setValue(user);
 
                         Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(Signup.this, AvatarSelectionActivity.class);
                         startActivity(intent);
                         finish();
-
-                    } else {
+                    }
+                    else {
                         Toast.makeText(this,
                                 task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
