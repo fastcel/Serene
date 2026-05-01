@@ -1,8 +1,10 @@
 package com.example.serene;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import com.google.firebase.auth.AuthCredential;
 public class Login extends AppCompatActivity {
 
     private TextInputEditText etEmail, etPassword;
+    TextView tvForgot;
     private MaterialButton btnSignIn;
     TextView tvSignup;
     private GoogleSignInClient googleSignInClient;
@@ -54,6 +57,7 @@ public class Login extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
         btnGoogle = findViewById(R.id.btnGoogle);
+        tvForgot = findViewById(R.id.tvForgot);
 
         // Click listener
         btnSignIn.setOnClickListener(v -> loginUser());
@@ -96,8 +100,94 @@ public class Login extends AppCompatActivity {
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
 
+
+        tvForgot.setOnClickListener(v -> showForgotPasswordDialog());
     }
 
+
+    private void showForgotPasswordDialog() {
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_forgot_password, null);
+
+        TextInputEditText etResetEmail = dialogView.findViewById(R.id.etResetEmail);
+        TextView tvResend = dialogView.findViewById(R.id.tvResend);
+        MaterialButton btnSend = dialogView.findViewById(R.id.btnSendReset);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        // 🔵 SEND BUTTON (main reset)
+        btnSend.setOnClickListener(v -> {
+
+            String email = etResetEmail.getText().toString().trim();
+
+            if (email.isEmpty()) {
+                etResetEmail.setError("Enter email");
+                return;
+            }
+
+            FirebaseAuth.getInstance()
+                    .sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Reset link sent!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this,
+                                    "Failed: " + task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
+
+        // 🔵 RESEND CLICKABLE TEXT
+        String text = "Haven’t received email? Resend link";
+
+        SpannableString spannable = new SpannableString(text);
+
+        int start = text.indexOf("Resend link");
+        int end = text.length();
+
+        ClickableSpan click = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+
+                String email = etResetEmail.getText().toString().trim();
+
+                if (email.isEmpty()) {
+                    etResetEmail.setError("Enter email first");
+                    return;
+                }
+
+                FirebaseAuth.getInstance()
+                        .sendPasswordResetEmail(email)
+                        .addOnSuccessListener(a ->
+                                Toast.makeText(Login.this, "Email resent!", Toast.LENGTH_SHORT).show()
+                        )
+                        .addOnFailureListener(e ->
+                                Toast.makeText(Login.this, "Failed", Toast.LENGTH_SHORT).show()
+                        );
+            }
+        };
+
+        spannable.setSpan(click, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(
+                new ForegroundColorSpan(Color.parseColor("#A020F0")),
+                start,
+                end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+
+        tvResend.setText(spannable);
+        tvResend.setMovementMethod(LinkMovementMethod.getInstance());
+        tvResend.setHighlightColor(Color.TRANSPARENT);
+
+        dialog.show();
+    }
     private void loginUser() {
 
         String email = etEmail.getText().toString().trim();
