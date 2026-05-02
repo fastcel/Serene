@@ -79,6 +79,11 @@ public class Signup extends AppCompatActivity {
         tvLogin.setText(spannable);
         tvLogin.setMovementMethod(LinkMovementMethod.getInstance());
         tvLogin.setHighlightColor(Color.TRANSPARENT);
+        tvLogin.setOnClickListener(v->{
+            Intent intent = new Intent(Signup.this, Login.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void registerUser() {

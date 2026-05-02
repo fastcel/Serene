@@ -183,8 +183,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:text="@string/already_registered_sign_in"
                     android:layout_marginTop="28dp"
-                    android:textColor="#4A3B75"
+                    android:textColor="@color/text_color_purple"
                     android:textSize="14sp"/>
 
             </LinearLayout>
