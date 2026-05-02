@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/blue"
+    android:background="@drawable/bg_gradient_drawer"
     android:padding="24dp">
 
 
@@ -12,8 +12,8 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create your avatar"
-        android:textColor="@color/black"
+        android:text="@string/create_your_avatar"
+        android:textColor="@color/text_color_purple"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginTop="25dp"/>
@@ -22,8 +22,8 @@
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Use the arrows to customise"
-        android:textColor="@color/black"
+        android:text="@string/use_the_arrows_to_customise"
+        android:textColor="@color/text_color_purple"
         android:textSize="13sp"
         android:layout_marginTop="2dp"/>
 
@@ -46,7 +46,8 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/light_blue">
 
                 <com.example.serene.AvatarView
                     android:id="@+id/avatarView"
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:orientation="vertical"
+            android:backgroundTint="@color/light_blue"
             android:background="@drawable/bg_controls_rounded"
             android:padding="12dp">
 
@@ -72,7 +74,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/blue"
+                android:background="@color/purple"
                 android:layout_marginHorizontal="8dp"/>
 
             <!-- Face -->
@@ -83,7 +85,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/blue"
+                android:background="@color/purple"
                 android:layout_marginHorizontal="8dp"/>
 
             <!-- Color -->
@@ -100,19 +102,20 @@
     <Button
         android:id="@+id/btnLetsGo"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Let's go!"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="@string/let_s_go"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:background="@drawable/bg_button_primary"
+        android:textSize="20sp"
+        android:backgroundTint="@color/purple"
         android:stateListAnimator="@null"/>
 
     <Button
         android:id="@+id/btnSkip"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="Skip for now"
-        android:textColor="@color/black"
+        android:text="@string/skip_for_now"
+        android:textColor="@color/text_color_purple"
         android:textSize="14sp"
         android:background="@android:color/transparent"
         android:layout_marginTop="6dp"/>

@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgradient"
+    android:background="@color/transparent"
     android:fillViewport="true">
 
     <LinearLayout
@@ -15,13 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/pastel_blue"
+            android:background="@color/light_blue"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp">
 
-            <!-- Top row: back + delete -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,18 +28,40 @@
                 android:gravity="center_vertical"
                 android:layout_marginBottom="14dp">
 
-                <TextView
-                    android:id="@+id/btnBack"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="← Back"
-                    android:textSize="13sp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:padding="4dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless" />
+                    android:orientation="vertical">
+                    <!-- Journal Title -->
+                    <TextView
+                        android:id="@+id/tvJournalTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Journal Title"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_color_blue"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Date -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+
+                        <TextView
+                            android:id="@+id/tvJournalDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thursday, 30 Apr 2026"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_color_blue" />
+
+                    </LinearLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="0dp"
@@ -55,36 +76,6 @@
                     android:contentDescription="Delete"
                     android:clickable="true"
                     android:focusable="true" />
-
-            </LinearLayout>
-
-            <!-- Journal Title -->
-            <TextView
-                android:id="@+id/tvJournalTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My Journal Title"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
-
-            <!-- Date -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="4dp">
-
-
-                <TextView
-                    android:id="@+id/tvJournalDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thursday, 30 Apr 2026"
-                    android:textSize="12sp"
-                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -112,7 +103,7 @@
                     android:text="Themes"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#3A3A7A"
+                    android:textColor="@color/text_color_blue"
                     android:layout_marginBottom="10dp" />
 
                 <LinearLayout
@@ -148,7 +139,7 @@
                     android:text="Your thoughts"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#3A3A7A"
+                    android:textColor="@color/text_color_blue"
                     android:layout_marginBottom="12dp" />
 
                 <TextView
@@ -156,8 +147,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Journal content goes here..."
-                    android:textSize="14sp"
-                    android:textColor="#1A1A4A"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_color_blue"
                     android:lineSpacingMultiplier="1.6"
                     android:minHeight="120dp" />
 
@@ -175,15 +166,18 @@
                     android:id="@+id/btnFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="☆ Add to favorites"
+                    android:text="@string/add_to_favorites"
                     android:textSize="18sp"
-                    android:textColor="#6058B0"
+                    android:textColor="@color/text_color_blue"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:background="@drawable/chip_unselected"
-                    android:backgroundTint="#D8C8F0" />
+                    android:backgroundTint="@color/light_blue"
+                    android:drawableStart="@drawable/favorite"
+                    android:drawableTint="#ff0000"
+                    android:drawablePadding="8dp"/>
 
             </LinearLayout>
 

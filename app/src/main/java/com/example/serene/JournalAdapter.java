@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,13 +20,18 @@ import java.util.List;
 public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHolder> {
 
     private List<Journal> list;
-    public JournalAdapter(List<Journal> list) {
-        this.list = list;
+    public interface OnJournalClickListener {
+        void onJournalClick(Journal journal);
     }
-
+    private OnJournalClickListener listener;
+    public JournalAdapter(List<Journal> list, OnJournalClickListener listener) {
+        this.list = list;
+        this.listener = listener;
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, date, btnFavorite;
+        TextView title, date;
+        ImageView btnFavorite;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -54,33 +60,29 @@ public class JournalAdapter extends RecyclerView.Adapter<JournalAdapter.ViewHold
         holder.title.setText(j.title != null ? j.title : "No Title");
         holder.date.setText(j.date != null ? j.date : "");
 
-        // ⭐ set star state
-        holder.btnFavorite.setText(j.isFavorite ? "★" : "☆");
+        if (j.isFavorite) {
+            holder.btnFavorite.setImageResource(R.drawable.favorite_filled);
+        } else {
+            holder.btnFavorite.setImageResource(R.drawable.favorite);
+        }
 
         // open detail
         holder.itemView.setOnClickListener(v -> {
-
-            Bundle bundle = new Bundle();
-            bundle.putString("journalId", j.id);
-
-            JournalDetailFragment fragment = new JournalDetailFragment();
-            fragment.setArguments(bundle);
-
-            ((FragmentActivity) v.getContext())
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit();
+            if (listener != null) {
+                listener.onJournalClick(j);
+            }
         });
 
-        // ⭐ toggle favorite
         holder.btnFavorite.setOnClickListener(v -> {
 
             j.isFavorite = !j.isFavorite;
 
             // instant UI update
-            holder.btnFavorite.setText(j.isFavorite ? "★" : "☆");
+            if (j.isFavorite) {
+                holder.btnFavorite.setImageResource(R.drawable.favorite_filled);
+            } else {
+                holder.btnFavorite.setImageResource(R.drawable.favorite);
+            }
 
             String userId = FirebaseAuth.getInstance()
                     .getCurrentUser()

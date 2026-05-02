@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/transparent">
 
     <!-- MAIN CONTENT -->
     <LinearLayout
@@ -17,22 +17,23 @@
             android:id="@+id/tvFavoritesTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="★ Favorite Journals"
+            android:text="@string/favorite_journals"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_purple"
             android:layout_marginTop="10dp" />
 
         <!-- EMPTY STATE -->
         <TextView
             android:id="@+id/tvEmptyFavorites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No favourites currently ⭐"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_favorites_yet"
             android:textSize="18sp"
             android:textColor="#444"
-            android:layout_marginTop="120dp"
-            android:visibility="gone" />
+            android:gravity="center"
+            android:visibility="gone"
+            />
 
         <!-- LIST -->
         <androidx.recyclerview.widget.RecyclerView

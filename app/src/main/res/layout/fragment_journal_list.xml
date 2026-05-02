@@ -1,80 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN COLUMN -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tvJournalTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Journals"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp" />
-
-        <!-- EMPTY STATE -->
+        <!-- HEADER (ALWAYS VISIBLE) -->
         <LinearLayout
-            android:id="@+id/emptyState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginTop="120dp">
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvJournalTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No journals yet 📝"
-                android:textSize="18sp"
-                android:textColor="#444" />
+                android:text="@string/your_journals"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_color_purple" />
 
-            <Button
-                android:id="@+id/btnStartWriting"
+            <TextView
+                android:id="@+id/btnViewFavorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Write your first journal"
-                android:layout_marginTop="12dp"/>
+                android:text="@string/view_favorites"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_color_purple"
+                android:padding="8dp"
+                android:layout_marginTop="6dp"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/btnViewFavorites"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="★ View Favorites"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#6058B0"
-            android:padding="8dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
 
-        <!-- LIST -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerJournals"
+        <!-- STATE CONTAINER -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- LOADING -->
+            <ProgressBar
+                android:id="@+id/loadingJournals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <!-- EMPTY STATE -->
+            <LinearLayout
+                android:id="@+id/emptyState"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_journals_yet"
+                    android:textSize="18sp"
+                    android:textColor="#444"/>
+            </LinearLayout>
+
+            <!-- LIST -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerJournals"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"/>
+        </FrameLayout>
 
     </LinearLayout>
 
-    <!-- BIGGER FAB -->
-    <ImageButton
+    <!-- FLOATING BUTTON -->
+    <ImageView
         android:id="@+id/fabAddJournal"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:src="@drawable/addicon"
-        android:background="@android:color/transparent"
-        android:scaleType="centerInside"
-        android:contentDescription="Add Journal"/>
+        android:contentDescription="@string/add_journal"/>
 
 </FrameLayout>
