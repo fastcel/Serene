@@ -1,14 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddJournalFragment">
+    android:background="@drawable/backgroundgradient"
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- ── HEADER ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#4682B4"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- Top row: back + save -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+<!--                <ImageButton-->
+<!--                    android:id="@+id/btnBack"-->
+<!--                    android:layout_width="32dp"-->
+<!--                    android:layout_height="32dp"-->
+<!--                    android:src="@drawable/ic_arrow_back"-->
+<!--                    android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--                    android:tint="#1A1A4A"-->
+<!--                    android:contentDescription="Back"/>-->
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="New Entry"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/btnSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
+
+
+            </LinearLayout>
+
+            <!-- Date row — tap to expand calendar -->
+            <LinearLayout
+                android:id="@+id/layoutDateRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thursday, 30 Apr"
+                    android:textSize="11sp"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:id="@+id/tvCalendarToggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Date"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <!-- Collapsible CalendarView -->
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:background="#CDD4F0"
+                android:layout_marginBottom="4dp"/>
+
+        </LinearLayout>
+
+        <!-- ── CONTENT ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Journal Title -->
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Give your entry a title..."
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textColorHint="#9A9ACA"
+                android:background="@android:color/transparent"
+                android:padding="0dp"
+                android:layout_marginBottom="4dp"
+                android:inputType="textCapSentences"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#B8BCE8"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- ── THEMES CARD ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="14dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Themes"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#3A3A7A"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- Theme chips row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/themeStress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stress"
+                        android:textSize="11sp"
+                        android:textColor="#803040"
+                        android:background="@drawable/chip_unselected"
+                        android:backgroundTint="#F0C8D0"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/themeWork"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Work"
+                        android:textSize="11sp"
+                        android:textColor="#2A3A7A"
+                        android:background="@drawable/chip_unselected"
+                        android:backgroundTint="#C8D8F0"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/themeFamily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Family"
+                        android:textSize="11sp"
+                        android:textColor="#4A2A8A"
+                        android:background="@drawable/chip_unselected"
+                        android:backgroundTint="#D8C8F0"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/themeHealth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Health"
+                        android:textSize="11sp"
+                        android:textColor="#7A5020"
+                        android:background="@drawable/chip_unselected"
+                        android:backgroundTint="#F0E0C8"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"/>
+
+                </LinearLayout>
+
+                <!-- Theme chips row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/themeRelationships"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Relationships"
+                        android:textSize="11sp"
+                        android:textColor="#1A4A6A"
+                        android:background="@drawable/chip_unselected"
+                        android:backgroundTint="#C8F0EC"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/themeSelf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Self"
+                        android:textSize="11sp"
+                        android:textColor="#3A3A7A"
+                        android:background="@drawable/chip_unselected"
+                        android:backgroundTint="#DCE0F8"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/themeOther"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Other"
+                        android:textSize="11sp"
+                        android:textColor="#5A5A9A"
+                        android:background="@drawable/chip_unselected"
+                        android:backgroundTint="#CDD4F0"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ── WRITE CARD ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="18dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your thoughts"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#3A3A7A"
+                    android:layout_marginBottom="10dp"/>
+
+                <EditText
+                    android:id="@+id/etContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:hint="Write freely, this is your space..."
+                    android:textSize="13sp"
+                    android:textColor="#1A1A4A"
+                    android:textColorHint="#9A9ACA"
+                    android:gravity="top|start"
+                    android:background="@android:color/transparent"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:padding="0dp"/>
+
+            </LinearLayout>
+
+            <!-- ── SAVE BUTTON ── -->
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
