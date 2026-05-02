@@ -44,6 +44,17 @@
                 android:text="Write your first journal"
                 android:layout_marginTop="12dp"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/btnViewFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="★ View Favorites"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#6058B0"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
 
         <!-- LIST -->
         <androidx.recyclerview.widget.RecyclerView
