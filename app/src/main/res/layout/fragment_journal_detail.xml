@@ -1,14 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JournalDetailFragment">
+    android:background="@drawable/backgroundgradient"
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- ── HEADER ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/pastel_blue"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- Top row: back + delete -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="← Back"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/btnDelete"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/bin"
+                    android:contentDescription="Delete"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+            <!-- Journal Title -->
+            <TextView
+                android:id="@+id/tvJournalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Journal Title"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Date -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+
+                <TextView
+                    android:id="@+id/tvJournalDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thursday, 30 Apr 2026"
+                    android:textSize="12sp"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- ── CONTENT ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- THEMES CARD -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="14dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Themes"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#3A3A7A"
+                    android:layout_marginBottom="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/layoutThemeChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    />
+
+                <TextView
+                    android:id="@+id/tvNoThemes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No themes selected"
+                    android:textSize="11sp"
+                    android:textColor="#9A9ACA"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- JOURNAL CONTENT -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your thoughts"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#3A3A7A"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:id="@+id/tvJournalContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Journal content goes here..."
+                    android:textSize="14sp"
+                    android:textColor="#1A1A4A"
+                    android:lineSpacingMultiplier="1.6"
+                    android:minHeight="120dp" />
+
+            </LinearLayout>
+
+            <!-- FAVORITE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:id="@+id/btnFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="☆ Add to favorites"
+                    android:textSize="18sp"
+                    android:textColor="#6058B0"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/chip_unselected"
+                    android:backgroundTint="#D8C8F0" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -102,10 +103,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void handleNavigation(int id) {
+        Fragment fragment=null;
 
         if (id == R.id.nav_home) {
 
         } else if (id == R.id.nav_journal) {
+            fragment = new JournalListFragment();
 
         } else if (id == R.id.nav_goals) {
 
@@ -124,6 +127,13 @@ public class HomeActivity extends AppCompatActivity {
 
             startActivity(intent);
             finish();
+        }
+
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .commit();
         }
     }
 
