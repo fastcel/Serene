@@ -54,4 +54,38 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="enter_pin">Enter PIN</string>
+    <string name="unlock">Unlock</string>
+    <string name="favorite">favorite</string>
+    <string name="view_favorites">♡ View Favorites</string>
+    <string name="no_journals_yet">No journals yet 📝</string>
+    <string name="your_journals">Your Journals</string>
+    <string name="add_journal">Add Journal</string>
+    <string name="your_wellness_companion">Your Wellness Companion</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="sign_in_to_continue_your_journey">Sign in to continue your journey</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or">--- or ---</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="no_account_sign_up">No account? Sign Up</string>
+    <string name="create_your_account">Create Your Account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="start_your_wellness_journey">Start your wellness journey</string>
+    <string name="username">Username</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="by_signing_up_you_agree_to_our_terms_and_conditions">By signing up, you agree to our Terms and Conditions</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="create_account">Create Account</string>
+    <string name="let_s_go">Let\'s go!</string>
+    <string name="skip_for_now">Skip for now</string>
+    <string name="use_the_arrows_to_customise">Use the arrows to customise</string>
+    <string name="create_your_avatar">Create your avatar</string>
+    <string name="no_favourites_currently">No favourites currently</string>
+    <string name="favorite_journals">♡ Favorite Journals</string>
+    <string name="no_favorites_yet">No favorites yet 📝</string>
+    <string name="add_to_favorites">Add to favorites</string>
 </resources>

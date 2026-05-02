@@ -23,10 +23,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="create your account"
-            android:textSize="20sp"
+            android:text="@string/create_your_account"
+            android:textSize="25sp"
             android:textStyle="bold"
-            android:textColor="#A020F0"/>
+            android:textColor="#a66eef"/>
     </LinearLayout>
 
     <!-- CARD -->
@@ -51,18 +51,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign Up"
+                    android:text="@string/sign_up"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="#A020F0"/>
+                    android:textColor="@color/text_color_purple"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start your wellness journey"
+                    android:text="@string/start_your_wellness_journey"
                     android:textSize="16sp"
                     android:layout_marginTop="4dp"
-                    android:textColor="#6E6191"/>
+                    android:textColor="@color/text_color_purple"/>
 
                 <!-- USERNAME -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -80,7 +80,7 @@
                         android:id="@+id/etUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Username"
+                        android:hint="@string/username"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +100,7 @@
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -121,7 +121,7 @@
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password"
+                        android:hint="@string/password"
                         android:inputType="textPassword"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -142,7 +142,7 @@
                         android:id="@+id/etConfirmPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Confirm Password"
+                        android:hint="@string/confirm_password"
                         android:inputType="textPassword"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -153,15 +153,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:textSize="13sp"
-                    android:textColor="#6E6191"
-                    android:text="By signing up, you agree to our Terms and Conditions"/>
+                    android:textColor="@color/text_color_purple"
+                    android:text="@string/by_signing_up_you_agree_to_our_terms_and_conditions"/>
 
                 <TextView
                     android:id="@+id/tvTerms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Terms and Conditions"
-                    android:textColor="#4A3B75"
+                    android:text="@string/terms_and_conditions"
+                    android:textColor="@color/text_color_purple"
                     android:textStyle="bold"
                     android:layout_marginTop="4dp"/>
 
@@ -171,11 +171,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="24dp"
-                    android:text="Create Account"
+                    android:text="@string/create_account"
                     android:textAllCaps="false"
                     android:textSize="18sp"
                     android:textColor="@android:color/white"
-                    android:backgroundTint="#8E7CC3"
+                    android:backgroundTint="@color/purple"
                     app:cornerRadius="20dp"/>
 
                 <TextView

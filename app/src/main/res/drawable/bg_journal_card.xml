@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Background fill -->
-    <solid android:color="#DDE7FF"/>
+    <solid android:color="@color/light_purple"/>
 
     <!-- Dark outline -->
     <stroke

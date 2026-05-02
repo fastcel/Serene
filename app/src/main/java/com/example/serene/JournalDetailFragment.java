@@ -1,5 +1,7 @@
 package com.example.serene;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Random;
 
 public class JournalDetailFragment extends Fragment {
 
@@ -56,7 +60,9 @@ public class JournalDetailFragment extends Fragment {
             ref.removeValue()
                     .addOnSuccessListener(unused -> {
                         if (getActivity() != null) {
-                            getActivity().getSupportFragmentManager().popBackStack();
+                            getActivity()
+                                    .getOnBackPressedDispatcher()
+                                    .onBackPressed();
                         }
                     })
                     .addOnFailureListener(e -> {
@@ -89,17 +95,15 @@ public class JournalDetailFragment extends Fragment {
     private void updateFavoriteUI() {
 
         if (isFavorite) {
-            btnFavorite.setText("★ Remove from favorites");
-            btnFavorite.setBackgroundTintList(
-                    android.content.res.ColorStateList.valueOf(0xFFFFD700)
+            btnFavorite.setText("Remove from favorites");
+            btnFavorite.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.favorite_filled, 0, 0, 0
             );
-            btnFavorite.setTextColor(0xFF1A1A4A);
         } else {
-            btnFavorite.setText("☆ Add to favorites");
-            btnFavorite.setBackgroundTintList(
-                    android.content.res.ColorStateList.valueOf(0xFFD8C8F0)
+            btnFavorite.setText("Add to favorites");
+            btnFavorite.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.favorite, 0, 0, 0
             );
-            btnFavorite.setTextColor(0xFF6058B0);
         }
     }
     private void loadJournal() {
@@ -138,7 +142,11 @@ public class JournalDetailFragment extends Fragment {
                     chip.setText(theme);
                     chip.setTextSize(11f);
                     chip.setPadding(24, 12, 24, 12);
+
+                    Integer color = getThemeColor(theme);
+
                     chip.setBackgroundResource(R.drawable.chip_unselected);
+                    chip.setBackgroundTintList(ColorStateList.valueOf(color));
 
                     layoutThemes.addView(chip);
                 }
@@ -150,5 +158,17 @@ public class JournalDetailFragment extends Fragment {
         }).addOnFailureListener(e -> {
             // optional error handling
         });
+    }
+
+    private int getThemeColor(String theme) {
+        switch (theme) {
+            case "Stress": return Color.parseColor("#803040");
+            case "Work": return Color.parseColor("#2A3A7A");
+            case "Family": return Color.parseColor("#4A2A8A");
+            case "Health": return Color.parseColor("#7A5020");
+            case "Relationships": return Color.parseColor("#1A4A6A");
+            case "Self": return Color.parseColor("#3A3A7A");
+            default: return Color.parseColor("#5A5A9A");
+        }
     }
 }

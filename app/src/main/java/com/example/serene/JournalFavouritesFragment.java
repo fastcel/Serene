@@ -75,7 +75,17 @@ public class JournalFavouritesFragment extends Fragment {
                 recyclerView.setVisibility(View.VISIBLE);
                 tvEmpty.setVisibility(View.GONE);
 
-                adapter = new JournalAdapter(favoriteList);
+                adapter = new JournalAdapter(favoriteList, journal -> {
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("journalId", journal.id);
+
+                    JournalDetailFragment fragment = new JournalDetailFragment();
+                    fragment.setArguments(bundle);
+
+                    ((JournalFragment) getParentFragment())
+                            .openFragment(fragment);
+                });
                 recyclerView.setAdapter(adapter);
             }
         });
