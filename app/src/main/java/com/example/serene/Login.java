@@ -31,6 +31,10 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.AuthCredential;
 
+import android.content.SharedPreferences;
+import android.content.Context;
+import android.widget.CheckBox;
+
 public class Login extends AppCompatActivity {
 
     private TextInputEditText etEmail, etPassword;
@@ -40,8 +44,8 @@ public class Login extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
     private static final int RC_SIGN_IN = 100;
     MaterialButton btnGoogle;
-
-
+    CheckBox cbRememberMe;
+    SharedPreferences prefs;
     private FirebaseAuth auth;
 
     @Override
@@ -58,22 +62,26 @@ public class Login extends AppCompatActivity {
         btnSignIn = findViewById(R.id.btnSignIn);
         btnGoogle = findViewById(R.id.btnGoogle);
         tvForgot = findViewById(R.id.tvForgot);
+        cbRememberMe = findViewById(R.id.cbRememberMe);
+        prefs = getSharedPreferences("serene_prefs", MODE_PRIVATE);
 
-        // Click listener
+        cbRememberMe.setChecked(prefs.getBoolean("remember_me", false));
+        if (prefs.getBoolean("remember_me", false)
+                && FirebaseAuth.getInstance().getCurrentUser() != null) {
+
+            startActivity(new Intent(Login.this, HomeActivity.class));
+            finish();
+        }
+
         btnSignIn.setOnClickListener(v -> loginUser());
         tvSignup = findViewById(R.id.tvSignup1);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
         String text = "No account? Sign Up";
-
         SpannableString spannable = new SpannableString(text);
-
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -143,15 +151,10 @@ public class Login extends AppCompatActivity {
                         }
                     });
         });
-
-        // 🔵 RESEND CLICKABLE TEXT
         String text = "Haven’t received email? Resend link";
-
         SpannableString spannable = new SpannableString(text);
-
         int start = text.indexOf("Resend link");
         int end = text.length();
-
         ClickableSpan click = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -209,12 +212,15 @@ public class Login extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
-                        Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-
-                        // TODO: move to dashboard
-                        Intent intent = new Intent(Login.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            prefs.edit()
+                                    .putBoolean("remember_me", cbRememberMe.isChecked())
+                                    .apply();
+                            Intent intent = new Intent(Login.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
 
                     } else {
                         Toast.makeText(Login.this,
