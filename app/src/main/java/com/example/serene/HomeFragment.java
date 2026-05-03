@@ -33,6 +33,8 @@ public class HomeFragment extends Fragment {
     private DatabaseReference db;
     private String userId;
     Button btnStartPomodoro;
+    private View loadingOverlay;
+    private int loadingTasks = 0;
     private final String todayKey = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
     public HomeFragment() {}
 
@@ -62,6 +64,7 @@ public class HomeFragment extends Fragment {
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db     = FirebaseDatabase.getInstance().getReference("users").child(userId);
         btnStartPomodoro = view.findViewById(R.id.btnStartPomodoro);
+        loadingOverlay = view.findViewById(R.id.loadingOverlay);
 
         setupDate();
         loadUsername();
@@ -70,11 +73,9 @@ public class HomeFragment extends Fragment {
         loadGoals();
 
         btnStartPomodoro.setOnClickListener(v -> {
-            getParentFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentContainer, new FocusFragment())
-                    .addToBackStack(null)
-                    .commit();
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).navigateTo(R.id.nav_focus);
+            }
         });
 
         return view;
@@ -86,6 +87,8 @@ public class HomeFragment extends Fragment {
         tvDate.setText(date);
     }
     private void loadUsername() {
+        startLoading();
+
         db.child("username").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,8 +98,13 @@ public class HomeFragment extends Fragment {
                     String greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
                     tvGreeting.setText(greeting + ", " + username);
                 }
+                stopLoading();
             }
-            @Override public void onCancelled(@NonNull DatabaseError e) {}
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError e) {
+                stopLoading();
+            }
         });
     }
     private void checkTodayMoodAndSetupClicks() {
@@ -161,6 +169,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadWeeklyMoods() {
+        startLoading();
+
         db.child("moods").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -168,7 +178,6 @@ public class HomeFragment extends Fragment {
                 int happy = 0, sad = 0, anxious = 0, calm = 0, stressed = 0;
 
                 for (DataSnapshot daySnap : snapshot.getChildren()) {
-
                     String mood = daySnap.getValue(String.class);
                     if (mood == null) continue;
 
@@ -189,10 +198,14 @@ public class HomeFragment extends Fragment {
                 updateMoodRow(tvAnxiousCount, progressAnxious, anxious, max);
                 updateMoodRow(tvCalmCount, progressCalm, calm, max);
                 updateMoodRow(tvStressedCount, progressStressed, stressed, max);
+
+                stopLoading();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+                stopLoading();
+            }
         });
     }
     private void updateMoodRow(TextView countTv, ProgressBar bar, int count, int max) {
@@ -201,19 +214,25 @@ public class HomeFragment extends Fragment {
         bar.setProgress(Math.round((count / (float) max) * 100));
     }
     private void loadGoals() {
+        startLoading();
+
         db.child("goals").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 int total = 0;
                 int completed = 0;
+
                 for (DataSnapshot goalSnap : snapshot.getChildren()) {
                     if (!goalSnap.hasChild("status")) continue;
                     total++;
+
                     String status = goalSnap.child("status").getValue(String.class);
                     if ("completed".equals(status)) {
                         completed++;
                     }
                 }
+
                 if (total == 0) {
                     tvGoalsCount.setText("No goals yet");
                     progressGoals.setProgress(0);
@@ -222,10 +241,27 @@ public class HomeFragment extends Fragment {
                     progressGoals.setMax(100);
                     progressGoals.setProgress((int) ((completed * 100.0f) / total));
                 }
+
+                stopLoading();
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+                stopLoading();
+            }
         });
     }
 
+    private void startLoading() {
+        loadingTasks++;
+        loadingOverlay.setVisibility(View.VISIBLE);
+    }
+
+    private void stopLoading() {
+        loadingTasks--;
+        if (loadingTasks <= 0) {
+            loadingTasks = 0;
+            loadingOverlay.setVisibility(View.GONE);
+        }
+    }
 }
