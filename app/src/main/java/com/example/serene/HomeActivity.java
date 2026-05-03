@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
@@ -128,8 +129,6 @@ public class HomeActivity extends AppCompatActivity {
             fragment = new JournalFragment();
         } else if (id == R.id.nav_goals) {
             fragment = new GoalsFragment();
-        } else if (id == R.id.nav_insights) {
-            fragment = new InsightsFragment();
         } else if (id == R.id.nav_focus) {
             fragment = new FocusFragment();
         } else if (id == R.id.nav_settings) {
@@ -191,10 +190,16 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
     private void loadAvatar() {
+
         View header = navigationView.getHeaderView(0);
+
         AvatarView avatarView = header.findViewById(R.id.imgAvatar);
+        TextView txtName = header.findViewById(R.id.txtName);
+
         AvatarManager.loadInto(avatarView);
+        UserManager.loadUsername(txtName);
     }
+
     @Override
     protected void onResume() {
         super.onResume();

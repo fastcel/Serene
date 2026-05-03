@@ -19,11 +19,6 @@
             android:icon="@drawable/goals"/>
 
         <item
-            android:id="@+id/nav_insights"
-            android:title="@string/insights"
-            android:icon="@drawable/insights"/>
-
-        <item
             android:id="@+id/nav_focus"
             android:title="@string/focus"
             android:icon="@drawable/focus"/>
