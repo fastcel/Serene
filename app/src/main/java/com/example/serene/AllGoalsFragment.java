@@ -1,64 +1,110 @@
 package com.example.serene;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AllGoalsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+
 public class AllGoalsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerGoals;
+    private LinearLayout layoutEmptyState;
+    private GoalAdapter goalAdapter;
+    private final List<Goal> allGoals = new ArrayList<>();
+    private DatabaseReference goalsRef;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AllGoalsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AllGoalsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AllGoalsFragment newInstance(String param1, String param2) {
-        AllGoalsFragment fragment = new AllGoalsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public AllGoalsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_goals, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_goals, container, false);
+
+        recyclerGoals    = view.findViewById(R.id.recyclerGoals);
+        layoutEmptyState = view.findViewById(R.id.layoutEmptyState);
+
+        // Get the ref from the parent instead of creating a second Firebase connection
+        if (getParentFragment() instanceof GoalsFragment) {
+            goalsRef = ((GoalsFragment) getParentFragment()).getGoalsRef();
+        }
+
+        if (goalsRef == null) return view;   // safety guard
+
+        setupRecyclerView();
+        loadGoals();
+        return view;
+    }
+
+    private void setupRecyclerView() {
+        goalAdapter = new GoalAdapter(getContext(), new ArrayList<>(), goalsRef);
+        recyclerGoals.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerGoals.setAdapter(goalAdapter);
+    }
+
+    private void loadGoals() {
+        goalsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                allGoals.clear();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Goal goal = ds.getValue(Goal.class);
+                    if (goal == null) continue;
+                    checkAndMarkOverdue(goal);
+                    allGoals.add(goal);
+                }
+                updateUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(getContext(), "Failed to load goals", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkAndMarkOverdue(Goal goal) {
+        if (goal.getDate() == null || goal.getDate().isEmpty()) return;
+        if ("completed".equals(goal.getStatus())) return;
+        try {
+            String time = (goal.getTime() == null || goal.getTime().isEmpty()) ? "23:59" : goal.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+            sdf.setLenient(false);
+            Date due = sdf.parse(goal.getDate() + " " + time);
+            if (due != null && due.before(new Date())) {
+                goal.setStatus("overdue");
+                goalsRef.child(goal.getId()).child("status").setValue("overdue");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateUI() {
+        goalAdapter.updateList(allGoals);
+        boolean empty = allGoals.isEmpty();
+        recyclerGoals.setVisibility(empty ? View.GONE : View.VISIBLE);
+        layoutEmptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
     }
 }
