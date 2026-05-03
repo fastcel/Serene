@@ -46,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         setupListeners();
+        handleNavigation(R.id.nav_home);
+        setSelected(R.id.nav_home);
 
         findViewById(R.id.drawerHandle).setOnClickListener(v ->
                 drawerLayout.openDrawer(GravityCompat.START)
@@ -104,6 +106,8 @@ public class HomeActivity extends AppCompatActivity {
                 if (bottomNav.getSelectedItemId() != id) {
                     bottomNav.setSelectedItemId(id);
                     animateNavItem(id);
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return true;
                 }
             } else {
                 clearBottomSelection();
@@ -218,5 +222,25 @@ public class HomeActivity extends AppCompatActivity {
 
         // 🔥 reset internal state
         bottomNav.setSelectedItemId(View.NO_ID);
+    }
+
+    public void navigateTo(int id) {
+
+        // sync drawer
+        if (navigationView.getCheckedItem() == null ||
+                navigationView.getCheckedItem().getItemId() != id) {
+            navigationView.setCheckedItem(id);
+        }
+
+        // ⚠️ Only trigger bottom nav — DO NOT call handleNavigation manually
+        if (id != R.id.nav_settings) {
+            if (bottomNav.getSelectedItemId() != id) {
+                bottomNav.setSelectedItemId(id); // this will trigger navigation
+                return; // 🔥 STOP here
+            }
+        } else {
+            clearBottomSelection();
+            handleNavigation(id); // settings isn't in bottom nav
+        }
     }
 }
