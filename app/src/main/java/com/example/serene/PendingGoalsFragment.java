@@ -38,26 +38,18 @@ public class PendingGoalsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pending_goals, container, false);
 
-        recyclerGoals = view.findViewById(R.id.recyclerPendingGoals);
+        recyclerGoals    = view.findViewById(R.id.recyclerPendingGoals);
         layoutEmptyState = view.findViewById(R.id.layoutEmptyState);
 
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            return view;
+        if (getParentFragment() instanceof GoalsFragment) {
+            goalsRef = ((GoalsFragment) getParentFragment()).getGoalsRef();
         }
-
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        goalsRef = FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(userId)
-                .child("goals");
+        if (goalsRef == null) return view;
 
         setupRecyclerView();
         loadPendingGoals();
-
         return view;
     }
-
     // ---------------- Recycler ----------------
     private void setupRecyclerView() {
 

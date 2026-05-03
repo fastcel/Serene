@@ -40,22 +40,15 @@ public class OverdueGoalsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_overdue_goals, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerOverdueGoals);
-        emptyState = view.findViewById(R.id.layoutEmptyState);
+        emptyState   = view.findViewById(R.id.layoutEmptyState);
 
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            return view;
+        if (getParentFragment() instanceof GoalsFragment) {
+            goalsRef = ((GoalsFragment) getParentFragment()).getGoalsRef();
         }
-
-        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        goalsRef = FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(userId)
-                .child("goals");
+        if (goalsRef == null) return view;
 
         setupRecyclerView();
         loadOverdueGoals();
-
         return view;
     }
 
