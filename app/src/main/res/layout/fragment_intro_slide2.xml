@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:padding="24dp">
 
-    <!-- TOP TEXT -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +29,6 @@
             android:layout_marginTop="8dp"/>
     </LinearLayout>
 
-    <!-- CENTER IMAGE -->
     <ImageView
         android:layout_width="280dp"
         android:layout_height="280dp"
@@ -39,7 +37,6 @@
         android:layout_weight="1"
         android:layout_marginTop="30dp"/>
 
-    <!-- BUTTON -->
     <Button
         android:id="@+id/btnStartNow"
         android:layout_width="match_parent"

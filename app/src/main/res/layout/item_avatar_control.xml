@@ -7,7 +7,6 @@
     android:paddingStart="4dp"
     android:paddingEnd="4dp">
 
-    <!-- Label: Fixed width of 72dp -->
     <TextView
         android:id="@+id/tvLabel"
         android:layout_width="72dp"
@@ -18,7 +17,6 @@
         android:gravity="end"
         android:paddingEnd="8dp"/>
 
-    <!-- Left arrow: Unified size to 48dp (standard touch target) -->
     <ImageButton
         android:id="@+id/btnPrev"
         android:layout_width="48dp"
@@ -28,7 +26,6 @@
         android:padding="12dp"
         android:contentDescription="Previous"/>
 
-    <!-- Value display: Weight 1 takes up remaining space -->
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -53,7 +50,6 @@
             android:visibility="gone"/>
     </FrameLayout>
 
-    <!-- Right arrow: Matched size to btnPrev -->
     <ImageButton
         android:id="@+id/btnNext"
         android:layout_width="48dp"
@@ -63,8 +59,6 @@
         android:padding="12dp"
         android:contentDescription="Next"/>
 
-    <!-- Invisible Spacer: This "mirrors" the 72dp label on the left
-         to push the center content back to the true center -->
     <View
         android:layout_width="72dp"
         android:layout_height="0dp" />

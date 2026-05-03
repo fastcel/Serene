@@ -7,7 +7,6 @@
     android:background="@drawable/card_bg"
     android:padding="20dp">
 
-    <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -18,7 +17,6 @@
         android:textColor="#1A1A4A"
         android:layout_marginBottom="16dp"/>
 
-    <!-- ── GOAL TITLE ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +44,6 @@
         android:layout_marginBottom="14dp"/>
 
 
-    <!-- ── DUE DATE ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,7 +70,6 @@
         android:focusable="true"
         android:layout_marginBottom="16dp"/>
 
-    <!-- ── DUE TIME ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,7 +96,6 @@
         android:clickable="true"
         android:focusable="true"
         android:layout_marginBottom="16dp"/>
-    <!-- ── PRIORITY ── -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -167,7 +162,6 @@
 
     </LinearLayout>
 
-    <!-- ── BUTTONS ROW ── -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -7,16 +7,12 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="32dp">
-
-    <!-- Logo -->
     <ImageView
         android:id="@+id/logo"
         android:layout_width="220dp"
         android:layout_height="220dp"
         android:src="@drawable/serenelogo"
         android:layout_marginBottom="20dp"/>
-
-    <!-- Slogan -->
     <TextView
         android:id="@+id/slogan"
         android:layout_width="wrap_content"

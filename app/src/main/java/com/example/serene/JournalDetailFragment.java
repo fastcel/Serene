@@ -22,20 +22,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Random;
 
 public class JournalDetailFragment extends Fragment {
-
     TextView tvTitle, tvDate, tvContent, tvNoThemes;
     ImageView btnDelete;
     LinearLayout layoutThemes;
     TextView btnFavorite;
     boolean isFavorite = false;
     String journalId;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_journal_detail, container, false);
-
         tvTitle = view.findViewById(R.id.tvJournalTitle);
         tvDate = view.findViewById(R.id.tvJournalDate);
         tvContent = view.findViewById(R.id.tvJournalContent);
@@ -43,11 +39,9 @@ public class JournalDetailFragment extends Fragment {
         tvNoThemes = view.findViewById(R.id.tvNoThemes);
         btnDelete = view.findViewById(R.id.btnDelete);
         btnFavorite = view.findViewById(R.id.btnFavorite);
-
         if (getArguments() != null) {
             journalId = getArguments().getString("journalId");
         }
-
         loadJournal();
         btnDelete.setOnClickListener(v -> {
             if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
@@ -66,29 +60,21 @@ public class JournalDetailFragment extends Fragment {
                         }
                     })
                     .addOnFailureListener(e -> {
-                        // optional: Toast
                     });
         });
 
         btnFavorite.setOnClickListener(v -> {
-
             if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
-
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
             DatabaseReference ref = FirebaseDatabase.getInstance()
                     .getReference("users")
                     .child(userId)
                     .child("journals")
                     .child(journalId);
-
             isFavorite = !isFavorite;
-
             ref.child("isFavorite").setValue(isFavorite);
-
             updateFavoriteUI();
         });
-
         return view;
     }
 
@@ -107,59 +93,41 @@ public class JournalDetailFragment extends Fragment {
         }
     }
     private void loadJournal() {
-
         if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
-
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(userId)
                 .child("journals")
                 .child(journalId);
-
         ref.get().addOnSuccessListener(snapshot -> {
-
             Journal j = snapshot.getValue(Journal.class);
             isFavorite = j.isFavorite;
             updateFavoriteUI();
-
             if (j == null) return;
-
             tvTitle.setText(j.title);
             tvDate.setText(j.date);
             tvContent.setText(j.content);
-
             layoutThemes.removeAllViews();
-
             if (j.themes != null && !j.themes.isEmpty()) {
-
                 tvNoThemes.setVisibility(View.GONE);
-
                 for (String theme : j.themes) {
-
                     TextView chip = new TextView(getContext());
                     chip.setText(theme);
                     chip.setTextSize(11f);
                     chip.setPadding(24, 12, 24, 12);
-
                     Integer color = getThemeColor(theme);
-
                     chip.setBackgroundResource(R.drawable.chip_unselected);
                     chip.setBackgroundTintList(ColorStateList.valueOf(color));
-
                     layoutThemes.addView(chip);
                 }
-
             } else {
                 tvNoThemes.setVisibility(View.VISIBLE);
             }
-
         }).addOnFailureListener(e -> {
-            // optional error handling
+
         });
     }
-
     private int getThemeColor(String theme) {
         switch (theme) {
             case "Stress": return Color.parseColor("#803040");

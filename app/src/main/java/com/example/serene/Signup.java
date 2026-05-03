@@ -27,22 +27,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Signup extends AppCompatActivity {
-
     private FirebaseAuth auth;
-
     private TextInputEditText etUsername, etEmail, etPassword, etConfirmPassword;
     private MaterialButton btnCreateAccount;
     TextView tvLogin,tvTerms;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
-        // Firebase
         auth = FirebaseAuth.getInstance();
-
-        // Bind views (IMPORTANT: IDs must exist in XML)
         etUsername = findViewById(R.id.etUsername);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -50,18 +43,13 @@ public class Signup extends AppCompatActivity {
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
         tvLogin = findViewById(R.id.tvLogin1);
         tvTerms = findViewById(R.id.tvTerms);
-
         tvTerms.setOnClickListener(v->{
             Intent intent = new Intent(Signup.this, TermsActivity.class);
             startActivity(intent);
         });
-
         btnCreateAccount.setOnClickListener(v -> registerUser());
-
         String text = "Already have an account? Login";
-
         SpannableString spannable = new SpannableString(text);
-
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
@@ -70,18 +58,14 @@ public class Signup extends AppCompatActivity {
                 finish();
             }
         };
-
         spannable.setSpan(clickableSpan,
                 text.indexOf("Login"),
                 text.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
         spannable.setSpan(new ForegroundColorSpan(Color.parseColor("#A020F0")),
                 text.indexOf("Login"),
                 text.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         tvLogin.setText(spannable);
         tvLogin.setMovementMethod(LinkMovementMethod.getInstance());
         tvLogin.setHighlightColor(Color.TRANSPARENT);
@@ -91,60 +75,44 @@ public class Signup extends AppCompatActivity {
             finish();
         });
     }
-
     private void registerUser() {
 
         String username = etUsername.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
-
-        // VALIDATION
         if (TextUtils.isEmpty(username)) {
             etUsername.setError("Enter username");
             return;
         }
-
         if (TextUtils.isEmpty(email)) {
             etEmail.setError("Enter email");
             return;
         }
-
         if (TextUtils.isEmpty(password)) {
             etPassword.setError("Enter password");
             return;
         }
-
         if (password.length() < 6) {
             etPassword.setError("Password must be 6+ characters");
             return;
         }
-
         if (!password.equals(confirmPassword)) {
             etConfirmPassword.setError("Passwords do not match");
             return;
         }
-
-        // FIREBASE SIGNUP
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-
                     if (task.isSuccessful()) {
-
                         String uid = auth.getCurrentUser().getUid();
-
                         DatabaseReference ref = FirebaseDatabase.getInstance()
                                 .getReference("users")
                                 .child(uid);
-
                         Map<String, Object> user = new HashMap<>();
                         user.put("username", username);
                         user.put("email", email);
-
                         ref.setValue(user);
-
                         Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-
                         Intent intent = new Intent(Signup.this, AvatarSelectionActivity.class);
                         startActivity(intent);
                         finish();

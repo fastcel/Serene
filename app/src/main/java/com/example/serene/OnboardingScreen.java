@@ -15,48 +15,33 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
-
-
 public class OnboardingScreen extends AppCompatActivity {
-
     ViewPager2 viewPager;
     LinearLayout dotsLayout;
     private final Handler handler = new Handler();
     private Runnable autoScrollRunnable;
     private static final long DELAY = 3000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_screen);
-
         viewPager = findViewById(R.id.viewPager);
         dotsLayout = findViewById(R.id.dotsLayout);
-
         viewPager.setAdapter(new OnboardingAdapter(this));
-
         autoScrollRunnable = new Runnable() {
             @Override
             public void run() {
-
                 int nextItem = viewPager.getCurrentItem() + 1;
-
                 if (nextItem >= 3) {
                     nextItem = 0;
                 }
-
                 viewPager.setCurrentItem(nextItem, true);
-
                 handler.postDelayed(this, DELAY);
             }
         };
-
         handler.postDelayed(autoScrollRunnable, DELAY);
-
         viewPager.setCurrentItem(0, false);
-
         viewPager.post(() -> setupDots(0));
-
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -64,13 +49,9 @@ public class OnboardingScreen extends AppCompatActivity {
 
             }
         });
-
-
     }
-
     private void setupDots(int position) {
         dotsLayout.removeAllViews();
-
         for (int i = 0; i < 3; i++) {
             TextView dot = new TextView(this);
             dot.setText("•");
@@ -79,7 +60,6 @@ public class OnboardingScreen extends AppCompatActivity {
             dotsLayout.addView(dot);
         }
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

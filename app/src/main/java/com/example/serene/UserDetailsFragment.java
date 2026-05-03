@@ -96,7 +96,6 @@ public class UserDetailsFragment extends Fragment {
                 } else {
                     tvGoals.setText("No goals found");
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

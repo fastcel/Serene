@@ -8,13 +8,11 @@
     android:background="@drawable/bg_gradient_drawer"
     android:padding="20dp">
 
-    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-
         <TextView
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
@@ -23,7 +21,6 @@
             android:textSize="22sp"
             android:textColor="@color/text_color_purple"
             android:padding="8dp"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,17 +31,14 @@
             android:layout_marginStart="12dp"/>
     </LinearLayout>
 
-    <!-- CONTENT -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

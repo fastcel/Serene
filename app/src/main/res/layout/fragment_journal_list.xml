@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- MAIN COLUMN -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- HEADER (ALWAYS VISIBLE) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,20 +36,17 @@
                 android:layout_marginTop="6dp"/>
         </LinearLayout>
 
-        <!-- STATE CONTAINER -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <!-- LOADING -->
             <ProgressBar
                 android:id="@+id/loadingJournals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
 
-            <!-- EMPTY STATE -->
             <LinearLayout
                 android:id="@+id/emptyState"
                 android:layout_width="match_parent"
@@ -67,7 +62,6 @@
                     android:textColor="#444"/>
             </LinearLayout>
 
-            <!-- LIST -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerJournals"
                 android:layout_width="match_parent"
@@ -77,7 +71,6 @@
 
     </LinearLayout>
 
-    <!-- FLOATING BUTTON -->
     <ImageView
         android:id="@+id/fabAddJournal"
         android:layout_width="60dp"

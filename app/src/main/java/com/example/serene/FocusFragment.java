@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 public class FocusFragment extends Fragment {
-
     private TextView tvTimer, tvModeLabel, tvSessionSummary;
     private ImageView btnPlayPause;
     private TextView btnReset, btnSkip, btnNewSession;
@@ -30,13 +29,13 @@ public class FocusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_focus, container, false);
-        tvTimer          = view.findViewById(R.id.tvTimer);
-        tvModeLabel      = view.findViewById(R.id.tvModeLabel);
+        tvTimer = view.findViewById(R.id.tvTimer);
+        tvModeLabel = view.findViewById(R.id.tvModeLabel);
         tvSessionSummary = view.findViewById(R.id.tvSessionSummary);
-        btnPlayPause     = view.findViewById(R.id.btnPlayPause);
-        btnReset         = view.findViewById(R.id.btnReset);
-        btnSkip          = view.findViewById(R.id.btnSkip);
-        btnNewSession    = view.findViewById(R.id.btnNewSession);
+        btnPlayPause = view.findViewById(R.id.btnPlayPause);
+        btnReset = view.findViewById(R.id.btnReset);
+        btnSkip = view.findViewById(R.id.btnSkip);
+        btnNewSession = view.findViewById(R.id.btnNewSession);
         remainingMillis = 25 * 60 * 1000L;
         updateTimerDisplay(remainingMillis);
         btnPlayPause.setImageResource(R.drawable.play);
@@ -88,22 +87,22 @@ public class FocusFragment extends Fragment {
     private void showSessionDialog() {
         View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.dialog_session_setup, null);
-        TextView opt25      = dialogView.findViewById(R.id.optWork25);
-        TextView opt45      = dialogView.findViewById(R.id.optWork45);
-        TextView opt60      = dialogView.findViewById(R.id.optWork60);
-        TextView optShort   = dialogView.findViewById(R.id.optBreakShort);
-        TextView optLong    = dialogView.findViewById(R.id.optBreakLong);
+        TextView opt25 = dialogView.findViewById(R.id.optWork25);
+        TextView opt45 = dialogView.findViewById(R.id.optWork45);
+        TextView opt60 = dialogView.findViewById(R.id.optWork60);
+        TextView optShort = dialogView.findViewById(R.id.optBreakShort);
+        TextView optLong = dialogView.findViewById(R.id.optBreakLong);
         View layoutShortOpts = dialogView.findViewById(R.id.layoutShortOpts);
-        View layoutLongOpts  = dialogView.findViewById(R.id.layoutLongOpts);
-        TextView optShort5  = dialogView.findViewById(R.id.optShort5);
+        View layoutLongOpts = dialogView.findViewById(R.id.layoutLongOpts);
+        TextView optShort5 = dialogView.findViewById(R.id.optShort5);
         TextView optShort10 = dialogView.findViewById(R.id.optShort10);
         TextView optShort15 = dialogView.findViewById(R.id.optShort15);
-        TextView optLong20  = dialogView.findViewById(R.id.optLong20);
-        TextView optLong35  = dialogView.findViewById(R.id.optLong35);
-        TextView optLong50  = dialogView.findViewById(R.id.optLong50);
-        final int[]     pickedWorkMin  = {25};
-        final int[]     pickedBreakMin = {5};
-        final boolean[] pickedShort    = {true};
+        TextView optLong20 = dialogView.findViewById(R.id.optLong20);
+        TextView optLong35 = dialogView.findViewById(R.id.optLong35);
+        TextView optLong50 = dialogView.findViewById(R.id.optLong50);
+        final int[] pickedWorkMin = {25};
+        final int[] pickedBreakMin = {5};
+        final boolean[] pickedShort = {true};
         Runnable refreshWork = () -> {
             int[] opts = {25, 45, 60};
             TextView[] views = {opt25, opt45, opt60};
@@ -160,9 +159,9 @@ public class FocusFragment extends Fragment {
                 .setCancelable(true)
                 .create();
         dialogView.findViewById(R.id.btnStartSession).setOnClickListener(v -> {
-            sessionWorkMin  = pickedWorkMin[0];
+            sessionWorkMin = pickedWorkMin[0];
             sessionBreakMin = pickedBreakMin[0];
-            useShortBreak   = pickedShort[0];
+            useShortBreak = pickedShort[0];
             sessionConfigured = true;
             currentMode = "work";
             remainingMillis = sessionWorkMin * 60 * 1000L;
@@ -196,7 +195,7 @@ public class FocusFragment extends Fragment {
     private void pauseTimer() {
         cancelTimer();
         isRunning = false;
-        btnPlayPause.setImageResource(R.drawable.play); // FIXED
+        btnPlayPause.setImageResource(R.drawable.play);
     }
     private void cancelTimer() {
         if (countDownTimer != null) { countDownTimer.cancel(); countDownTimer = null; }

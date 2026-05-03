@@ -12,22 +12,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class IntroSlide2 extends Fragment {
-
     public IntroSlide2() {}
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_intro_slide2, container, false);
-
         Button btn = view.findViewById(R.id.btnStartNow);
         btn.setOnClickListener(v -> {
             SharedPreferences prefs = getActivity().getSharedPreferences("app_prefs", MODE_PRIVATE);
             prefs.edit().putBoolean("onboarding_done", true).apply();
             startActivity(new Intent(getActivity(), Login.class));
         });
-
         return view;
     }
 }

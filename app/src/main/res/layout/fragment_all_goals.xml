@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/transparent">
 
-    <!-- LIST -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerGoals"
         android:layout_width="match_parent"
@@ -13,7 +12,6 @@
         android:clipToPadding="false"
         android:visibility="gone"/>
 
-    <!-- EMPTY STATE -->
     <LinearLayout
         android:id="@+id/layoutEmptyState"
         android:layout_width="match_parent"
@@ -46,7 +44,6 @@
             android:textColor="#8A8ABA"/>
     </LinearLayout>
 
-    <!-- LOADING -->
     <ProgressBar
         android:id="@+id/progressGoals"
         android:layout_width="wrap_content"

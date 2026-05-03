@@ -19,7 +19,6 @@
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
 
-        <!-- Work duration -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +27,6 @@
             android:textSize="13sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +79,6 @@
 
         </LinearLayout>
 
-        <!-- Break type -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -128,7 +125,6 @@
 
         </LinearLayout>
 
-        <!-- Short break options -->
         <LinearLayout
             android:id="@+id/layoutShortOpts"
             android:layout_width="match_parent"
@@ -182,7 +178,6 @@
 
         </LinearLayout>
 
-        <!-- Long break options -->
         <LinearLayout
             android:id="@+id/layoutLongOpts"
             android:layout_width="match_parent"
@@ -237,7 +232,6 @@
 
         </LinearLayout>
 
-        <!-- Actions -->
         <TextView
             android:id="@+id/btnStartSession"
             android:layout_width="match_parent"

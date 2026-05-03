@@ -5,11 +5,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class OnboardingAdapter extends FragmentStateAdapter {
-
     public OnboardingAdapter(FragmentActivity fa) {
         super(fa);
     }
-
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
@@ -18,7 +16,6 @@ public class OnboardingAdapter extends FragmentStateAdapter {
             default: return new IntroSlide3();
         }
     }
-
     @Override
     public int getItemCount() {
         return 3;

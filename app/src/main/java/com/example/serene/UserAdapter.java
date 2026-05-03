@@ -28,18 +28,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public interface OnUserClickListener {
         void onUserClick(String uid);
     }
-
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_user, parent, false);
         return new UserViewHolder(view);
     }
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-
         User user = userList.get(position);
         String uid = userIds.get(position);
         holder.tvUsername.setText(user.username);
@@ -61,11 +58,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 }
                 Toast.makeText(v.getContext(), "User deleted", Toast.LENGTH_SHORT).show();
             });
-
             builder.setNegativeButton("Cancel", (dialog, which) -> {
                 dialog.dismiss();
             });
-
             builder.show();
         });
         holder.itemView.setOnClickListener(v -> {

@@ -6,17 +6,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class AvatarView extends FrameLayout {
-
     private ImageView base;
     private ImageView eyes;
     private ImageView mouth;
     private ImageView accessory;
-
     public AvatarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
-
     private void init(Context context) {
         inflate(context, R.layout.view_avatar, this);
 
@@ -25,13 +22,8 @@ public class AvatarView extends FrameLayout {
         mouth = findViewById(R.id.imgMouth);
         accessory = findViewById(R.id.imgAccessory);
     }
-
     public void setAvatarConfig(String eyesType, String mouthType, String accessoryName) {
-
-        // BASE
         base.setImageResource(R.drawable.avatar_base);
-
-        // 👁 EYES
         switch (eyesType) {
             case "Happy":
                 eyes.setImageResource(R.drawable.eyes_happy);
@@ -49,8 +41,6 @@ public class AvatarView extends FrameLayout {
                 eyes.setImageResource(R.drawable.eyes_wink);
                 break;
         }
-
-        // 👄 MOUTH
         switch (mouthType) {
             case "Cute":
                 mouth.setImageResource(R.drawable.mouth_cute);
@@ -68,8 +58,6 @@ public class AvatarView extends FrameLayout {
                 mouth.setImageResource(R.drawable.mouth_smile);
                 break;
         }
-
-        // 🎩 ACCESSORY
         switch (accessoryName) {
             case "Glasses":
                 accessory.setImageResource(R.drawable.acc_glasses);
