@@ -1,6 +1,7 @@
 package com.example.serene;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -23,21 +24,22 @@ public class MainActivity extends AppCompatActivity {
 
         logo = findViewById(R.id.logo);
 
-        // Animation
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.logo_fade_in);
         logo.startAnimation(fadeIn);
 
-        // Delay
         new Handler().postDelayed(() -> {
 
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+            boolean onboardingDone = prefs.getBoolean("onboarding_done", false);
 
             Intent intent;
 
-            if (user != null) {
-                intent = new Intent(MainActivity.this, Login.class);
-            } else {
+            if (!onboardingDone || false) { //Change this false to true to hardwire intro screens
+                // First ever launch
                 intent = new Intent(MainActivity.this, OnboardingScreen.class);
+            } else {
+                // Always go to login (your login handles auth check)
+                intent = new Intent(MainActivity.this, Login.class);
             }
 
             startActivity(intent);

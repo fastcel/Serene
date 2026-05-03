@@ -2,6 +2,7 @@ package com.example.serene;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,6 +21,9 @@ public class OnboardingScreen extends AppCompatActivity {
 
     ViewPager2 viewPager;
     LinearLayout dotsLayout;
+    private final Handler handler = new Handler();
+    private Runnable autoScrollRunnable;
+    private static final long DELAY = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,25 @@ public class OnboardingScreen extends AppCompatActivity {
         dotsLayout = findViewById(R.id.dotsLayout);
 
         viewPager.setAdapter(new OnboardingAdapter(this));
+
+        autoScrollRunnable = new Runnable() {
+            @Override
+            public void run() {
+
+                int nextItem = viewPager.getCurrentItem() + 1;
+
+                if (nextItem >= 3) {
+                    nextItem = 0;
+                }
+
+                viewPager.setCurrentItem(nextItem, true);
+
+                handler.postDelayed(this, DELAY);
+            }
+        };
+
+        handler.postDelayed(autoScrollRunnable, DELAY);
+
         viewPager.setCurrentItem(0, false);
 
         viewPager.post(() -> setupDots(0));
@@ -55,5 +78,11 @@ public class OnboardingScreen extends AppCompatActivity {
             dot.setTextColor(i == position ? 0xFF6C63FF : 0x55FFFFFF);
             dotsLayout.addView(dot);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(autoScrollRunnable);
     }
 }
