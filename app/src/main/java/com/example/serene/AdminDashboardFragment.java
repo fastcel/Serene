@@ -1,6 +1,7 @@
 package com.example.serene;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.util.List;
 public class AdminDashboardFragment extends Fragment {
 
     private RecyclerView recyclerUsers;
-    private Button btnRefresh, btnAddUser;
+    private Button btnRefresh, btnAddUser, btnLogout;
 
     private DatabaseReference usersRef;
     private FirebaseAuth auth;
@@ -43,6 +44,7 @@ public class AdminDashboardFragment extends Fragment {
         recyclerUsers = view.findViewById(R.id.recyclerUsers);
         btnRefresh = view.findViewById(R.id.btnRefresh);
         btnAddUser = view.findViewById(R.id.btnAddUser);
+        btnLogout = view.findViewById(R.id.btnLogout);
         auth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference("users");
         userList = new ArrayList<>();
@@ -62,6 +64,7 @@ public class AdminDashboardFragment extends Fragment {
         loadUsers();
         btnRefresh.setOnClickListener(v -> loadUsers());
         btnAddUser.setOnClickListener(v -> showAddUserDialog());
+        btnLogout.setOnClickListener(v->logout());
         return view;
     }
     private void loadUsers() {
@@ -115,5 +118,19 @@ public class AdminDashboardFragment extends Fragment {
                     usersRef.child(uid).setValue(user);
                 })
                 .addOnFailureListener(Throwable::printStackTrace);
+    }
+
+    private void logout() {
+
+        FirebaseAuth.getInstance().signOut();
+
+        Intent intent = new Intent(getActivity(), Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(intent);
+
+        if (getActivity() != null) {
+            getActivity().finish();
+        }
     }
 }
