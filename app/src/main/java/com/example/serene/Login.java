@@ -36,7 +36,6 @@ import android.content.Context;
 import android.widget.CheckBox;
 
 public class Login extends AppCompatActivity {
-
     private TextInputEditText etEmail, etPassword;
     TextView tvForgot;
     private MaterialButton btnSignIn;
@@ -47,16 +46,11 @@ public class Login extends AppCompatActivity {
     CheckBox cbRememberMe;
     SharedPreferences prefs;
     private FirebaseAuth auth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Firebase
         auth = FirebaseAuth.getInstance();
-
-        // Bind UI
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnSignIn = findViewById(R.id.btnSignIn);
@@ -64,25 +58,19 @@ public class Login extends AppCompatActivity {
         tvForgot = findViewById(R.id.tvForgot);
         cbRememberMe = findViewById(R.id.cbRememberMe);
         prefs = getSharedPreferences("serene_prefs", MODE_PRIVATE);
-
         cbRememberMe.setChecked(prefs.getBoolean("remember_me", false));
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (prefs.getBoolean("remember_me", false) && auth.getCurrentUser() != null) {
-
             String role = prefs.getString("user_role", "user");
-
             Intent intent;
-
             if (role.equals("admin")) {
                 intent = new Intent(Login.this, AdminActivity.class);
             } else {
                 intent = new Intent(Login.this, HomeActivity.class);
             }
-
             startActivity(intent);
             finish();
         }
-
         btnSignIn.setOnClickListener(v -> loginUser());
         tvSignup = findViewById(R.id.tvSignup1);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -112,43 +100,29 @@ public class Login extends AppCompatActivity {
         tvSignup.setText(spannable);
         tvSignup.setMovementMethod(LinkMovementMethod.getInstance());
         tvSignup.setHighlightColor(Color.TRANSPARENT);
-
         btnGoogle.setOnClickListener(v -> {
             Intent signInIntent = googleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
-
-
         tvForgot.setOnClickListener(v -> showForgotPasswordDialog());
     }
-
-
     private void showForgotPasswordDialog() {
-
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_forgot_password, null);
-
         TextInputEditText etResetEmail = dialogView.findViewById(R.id.etResetEmail);
         TextView tvResend = dialogView.findViewById(R.id.tvResend);
         MaterialButton btnSend = dialogView.findViewById(R.id.btnSendReset);
-
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
                 .create();
-
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
-
-        // 🔵 SEND BUTTON (main reset)
         btnSend.setOnClickListener(v -> {
-
             String email = etResetEmail.getText().toString().trim();
-
             if (email.isEmpty()) {
                 etResetEmail.setError("Enter email");
                 return;
             }
-
             FirebaseAuth.getInstance()
                     .sendPasswordResetEmail(email)
                     .addOnCompleteListener(task -> {
@@ -168,14 +142,11 @@ public class Login extends AppCompatActivity {
         ClickableSpan click = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-
                 String email = etResetEmail.getText().toString().trim();
-
                 if (email.isEmpty()) {
                     etResetEmail.setError("Enter email first");
                     return;
                 }
-
                 FirebaseAuth.getInstance()
                         .sendPasswordResetEmail(email)
                         .addOnSuccessListener(a ->
@@ -186,7 +157,6 @@ public class Login extends AppCompatActivity {
                         );
             }
         };
-
         spannable.setSpan(click, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannable.setSpan(
                 new ForegroundColorSpan(Color.parseColor("#A020F0")),
@@ -194,54 +164,39 @@ public class Login extends AppCompatActivity {
                 end,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
-
         tvResend.setText(spannable);
         tvResend.setMovementMethod(LinkMovementMethod.getInstance());
         tvResend.setHighlightColor(Color.TRANSPARENT);
-
         dialog.show();
     }
     private void loginUser() {
-
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-
-        // Validation
         if (TextUtils.isEmpty(email)) {
             etEmail.setError("Email required");
             return;
         }
-
         if (TextUtils.isEmpty(password)) {
             etPassword.setError("Password required");
             return;
         }
-
-        // Firebase login
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
-
                     if (task.isSuccessful()) {
-
                         prefs.edit()
                                 .putBoolean("remember_me", cbRememberMe.isChecked())
                                 .putString("user_role",
                                         email.equals("admin@gmail.com") ? "admin" : "user")
                                 .apply();
-
                         Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-
                         Intent intent;
-
                         if (email.equals("admin@gmail.com")) {
                             intent = new Intent(Login.this, AdminActivity.class);
                         } else {
                             intent = new Intent(Login.this, HomeActivity.class);
                         }
-
                         startActivity(intent);
                         finish();
-
                     } else {
                         Toast.makeText(Login.this,
                                 "Login Failed: " + task.getException().getMessage(),
@@ -249,38 +204,27 @@ public class Login extends AppCompatActivity {
                     }
                 });
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-
                 firebaseAuthWithGoogle(account.getIdToken());
-
             } catch (ApiException e) {
                 Toast.makeText(this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
     private void firebaseAuthWithGoogle(String idToken) {
-
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
-
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Google Login Successful", Toast.LENGTH_SHORT).show();
-
                         startActivity(new Intent(this, HomeActivity.class));
                         finish();
-
                     } else {
                         Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                     }

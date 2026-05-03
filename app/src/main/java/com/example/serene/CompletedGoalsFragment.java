@@ -20,33 +20,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompletedGoalsFragment extends Fragment {
-
     private RecyclerView recyclerView;
     private LinearLayout emptyState;
-
     private GoalAdapter adapter;
     private final List<Goal> completedGoals = new ArrayList<>();
-
     private DatabaseReference goalsRef;
     private String userId;
-
     public CompletedGoalsFragment() {}
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_completed_goals, container, false);
-
         recyclerView = view.findViewById(R.id.recyclerDoneGoals);
-        emptyState   = view.findViewById(R.id.layoutEmptyState);
-
+        emptyState = view.findViewById(R.id.layoutEmptyState);
         if (getParentFragment() instanceof GoalsFragment) {
             goalsRef = ((GoalsFragment) getParentFragment()).getGoalsRef();
         }
         if (goalsRef == null) return view;
-
         setupRecyclerView();
         loadCompletedGoals();
         return view;
@@ -56,26 +47,19 @@ public class CompletedGoalsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
-
     private void loadCompletedGoals() {
-
         goalsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 completedGoals.clear();
-
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Goal goal = ds.getValue(Goal.class);
-
                     if (goal != null && "completed".equals(goal.getStatus())) {
                         completedGoals.add(goal);
                     }
                 }
-
                 updateUI();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(),
@@ -84,11 +68,8 @@ public class CompletedGoalsFragment extends Fragment {
             }
         });
     }
-
     private void updateUI() {
-
         adapter.updateList(completedGoals);
-
         if (completedGoals.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             emptyState.setVisibility(View.VISIBLE);

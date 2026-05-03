@@ -7,19 +7,16 @@
     android:orientation="vertical"
     android:background="@drawable/backgroundgradient">
 
-    <!-- LOGO -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="60dp">
-
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/serenelogo"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,25 +26,20 @@
             android:textColor="#a66eef"/>
     </LinearLayout>
 
-    <!-- CARD -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="40dp"
         app:cardCornerRadius="40dp"
         app:cardElevation="0dp">
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="32dp">
-
-                <!-- TITLE -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,7 +47,6 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_color_purple"/>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,8 +54,6 @@
                     android:textSize="16sp"
                     android:layout_marginTop="4dp"
                     android:textColor="@color/text_color_purple"/>
-
-                <!-- USERNAME -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,7 +64,6 @@
                     app:boxCornerRadiusBottomStart="20dp"
                     app:boxCornerRadiusBottomEnd="20dp"
                     app:boxStrokeColor="#8E7CC3">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etUsername"
                         android:layout_width="match_parent"
@@ -83,8 +71,6 @@
                         android:hint="@string/username"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- EMAIL -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,7 +81,6 @@
                     app:boxCornerRadiusTopEnd="20dp"
                     app:boxCornerRadiusBottomStart="20dp"
                     app:boxCornerRadiusBottomEnd="20dp">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
@@ -104,8 +89,6 @@
                         android:inputType="textEmailAddress"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- PASSWORD -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,7 +99,6 @@
                     app:boxCornerRadiusTopEnd="20dp"
                     app:boxCornerRadiusBottomStart="20dp"
                     app:boxCornerRadiusBottomEnd="20dp">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
@@ -125,8 +107,6 @@
                         android:inputType="textPassword"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- CONFIRM PASSWORD -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,7 +117,6 @@
                     app:boxCornerRadiusTopEnd="20dp"
                     app:boxCornerRadiusBottomStart="20dp"
                     app:boxCornerRadiusBottomEnd="20dp">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etConfirmPassword"
                         android:layout_width="match_parent"
@@ -146,8 +125,6 @@
                         android:inputType="textPassword"
                         android:padding="16dp"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- TERMS -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -155,7 +132,6 @@
                     android:textSize="13sp"
                     android:textColor="@color/text_color_purple"
                     android:text="@string/by_signing_up_you_agree_to_our_terms_and_conditions"/>
-
                 <TextView
                     android:id="@+id/tvTerms"
                     android:layout_width="wrap_content"
@@ -164,8 +140,6 @@
                     android:textColor="@color/text_color_purple"
                     android:textStyle="bold"
                     android:layout_marginTop="4dp"/>
-
-                <!-- CREATE ACCOUNT -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnCreateAccount"
                     android:layout_width="match_parent"
@@ -177,7 +151,6 @@
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/purple"
                     app:cornerRadius="20dp"/>
-
                 <TextView
                     android:id="@+id/tvLogin1"
                     android:layout_width="wrap_content"
@@ -187,7 +160,6 @@
                     android:layout_marginTop="28dp"
                     android:textColor="@color/text_color_purple"
                     android:textSize="14sp"/>
-
             </LinearLayout>
         </ScrollView>
 

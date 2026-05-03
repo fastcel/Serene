@@ -20,69 +20,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JournalFavouritesFragment extends Fragment {
-
     RecyclerView recyclerView;
     TextView tvEmpty;
-
     JournalAdapter adapter;
     List<Journal> favoriteList = new ArrayList<>();
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_journal_favourites, container, false);
-
         recyclerView = view.findViewById(R.id.recyclerFavorites);
         tvEmpty = view.findViewById(R.id.tvEmptyFavorites);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         loadFavorites();
-
         return view;
     }
-
     private void loadFavorites() {
-
         if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
-
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         DatabaseReference ref = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(userId)
                 .child("journals");
-
         ref.get().addOnSuccessListener(snapshot -> {
-
             favoriteList.clear();
-
             for (DataSnapshot ds : snapshot.getChildren()) {
-
                 Journal j = ds.getValue(Journal.class);
-
                 if (j != null && j.isFavorite) {
                     j.id = ds.getKey();
                     favoriteList.add(j);
                 }
             }
-
             if (favoriteList.isEmpty()) {
                 recyclerView.setVisibility(View.GONE);
                 tvEmpty.setVisibility(View.VISIBLE);
             } else {
                 recyclerView.setVisibility(View.VISIBLE);
                 tvEmpty.setVisibility(View.GONE);
-
                 adapter = new JournalAdapter(favoriteList, journal -> {
-
                     Bundle bundle = new Bundle();
                     bundle.putString("journalId", journal.id);
-
                     JournalDetailFragment fragment = new JournalDetailFragment();
                     fragment.setArguments(bundle);
-
                     ((JournalFragment) getParentFragment())
                             .openFragment(fragment);
                 });

@@ -22,25 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDashboardFragment extends Fragment {
-
     private RecyclerView recyclerUsers;
     private Button btnRefresh, btnAddUser, btnLogout;
-
     private DatabaseReference usersRef;
     private FirebaseAuth auth;
-
     private UserAdapter adapter;
     private List<User> userList;
-    private List<String> userIds; // 👈 IMPORTANT (keep UID separate)
+    private List<String> userIds;
 
     public AdminDashboardFragment() {}
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false);
-
         recyclerUsers = view.findViewById(R.id.recyclerUsers);
         btnRefresh = view.findViewById(R.id.btnRefresh);
         btnAddUser = view.findViewById(R.id.btnAddUser);
@@ -50,9 +44,7 @@ public class AdminDashboardFragment extends Fragment {
         userList = new ArrayList<>();
         userIds = new ArrayList<>();
         adapter = new UserAdapter(userList, userIds, uid -> {
-
             UserDetailsFragment fragment = UserDetailsFragment.newInstance(uid);
-
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.admin_fragment_container, fragment)
@@ -121,14 +113,10 @@ public class AdminDashboardFragment extends Fragment {
     }
 
     private void logout() {
-
         FirebaseAuth.getInstance().signOut();
-
         Intent intent = new Intent(getActivity(), Login.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
         startActivity(intent);
-
         if (getActivity() != null) {
             getActivity().finish();
         }

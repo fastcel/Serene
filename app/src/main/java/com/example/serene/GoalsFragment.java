@@ -25,70 +25,52 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class GoalsFragment extends Fragment {
-
     ViewPager2 viewPager;
     TabLayout tabLayout;
     ImageView btnAddGoal;
-
     private GoalsPagerAdapter adapter;
-    private DatabaseReference goalsRef;   // ← moved here
-
+    private DatabaseReference goalsRef;
     public GoalsFragment() {
         super(R.layout.fragment_goals);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        viewPager   = view.findViewById(R.id.viewPager);
-        tabLayout   = view.findViewById(R.id.tabLayout);
-        btnAddGoal  = view.findViewById(R.id.btnAddGoal);
-
-        // Firebase lives here now
+        viewPager = view.findViewById(R.id.viewPager);
+        tabLayout = view.findViewById(R.id.tabLayout);
+        btnAddGoal = view.findViewById(R.id.btnAddGoal);
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         goalsRef = FirebaseDatabase.getInstance()
                 .getReference("users")
                 .child(userId)
                 .child("goals");
-
         adapter = new GoalsPagerAdapter(this);
         viewPager.setAdapter(adapter);
-
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             String[] labels = {"All", "Pending", "Completed", "Overdue"};
             tab.setText(labels[position]);
         }).attach();
-
-        // No tab-switching needed — dialog works from any tab
         btnAddGoal.setOnClickListener(v -> showAddGoalDialog());
     }
 
-    // ─── ADD GOAL DIALOG (was in AllGoalsFragment) ───────────────────────────
-
-    private String selectedDate     = "";
-    private String selectedTime     = "";
+    private String selectedDate = "";
+    private String selectedTime = "";
     private String selectedPriority = "medium";
-
     private void showAddGoalDialog() {
         View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.dialog_add_goal, null);
-
         TextView dialogTitle = dialogView.findViewById(R.id.tvTitle);
         dialogTitle.setText("Add Goal");
-
-        EditText etGoal  = dialogView.findViewById(R.id.etGoal);
-        TextView tvDate  = dialogView.findViewById(R.id.tvDate);
-        TextView tvTime  = dialogView.findViewById(R.id.tvTime);
-        TextView low     = dialogView.findViewById(R.id.priorityLow);
-        TextView medium  = dialogView.findViewById(R.id.priorityMedium);
-        TextView high    = dialogView.findViewById(R.id.priorityHigh);
-
-        selectedDate     = "";
-        selectedTime     = "";
+        EditText etGoal = dialogView.findViewById(R.id.etGoal);
+        TextView tvDate = dialogView.findViewById(R.id.tvDate);
+        TextView tvTime = dialogView.findViewById(R.id.tvTime);
+        TextView low = dialogView.findViewById(R.id.priorityLow);
+        TextView medium = dialogView.findViewById(R.id.priorityMedium);
+        TextView high = dialogView.findViewById(R.id.priorityHigh);
+        selectedDate = "";
+        selectedTime = "";
         selectedPriority = "medium";
         updatePriorityUI(low, medium, high, selectedPriority);
-
         low.setOnClickListener(v -> {
             selectedPriority = "low";
             updatePriorityUI(low, medium, high, selectedPriority);
@@ -101,7 +83,6 @@ public class GoalsFragment extends Fragment {
             selectedPriority = "high";
             updatePriorityUI(low, medium, high, selectedPriority);
         });
-
         tvDate.setOnClickListener(v -> {
             Calendar cal = Calendar.getInstance();
             new DatePickerDialog(requireContext(),
@@ -115,7 +96,6 @@ public class GoalsFragment extends Fragment {
                     cal.get(Calendar.DAY_OF_MONTH)
             ).show();
         });
-
         tvTime.setOnClickListener(v -> {
             Calendar cal = Calendar.getInstance();
             new TimePickerDialog(requireContext(),
@@ -129,16 +109,13 @@ public class GoalsFragment extends Fragment {
                     true
             ).show();
         });
-
         AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create();
-
         dialogView.findViewById(R.id.btnSaveGoal).setOnClickListener(v -> {
             String text = etGoal.getText().toString().trim();
             if (text.isEmpty()) { etGoal.setError("Enter a goal"); return; }
             if (selectedTime.isEmpty()) selectedTime = "23:59";
-
             String id = goalsRef.push().getKey();
             if (id == null) return;
 
@@ -147,7 +124,6 @@ public class GoalsFragment extends Fragment {
             );
             dialog.dismiss();
         });
-
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         dialog.show();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -160,12 +136,10 @@ public class GoalsFragment extends Fragment {
         low.setTextColor(getResources().getColor(android.R.color.black));
         medium.setTextColor(getResources().getColor(android.R.color.black));
         high.setTextColor(getResources().getColor(android.R.color.black));
-
         TextView target = "low".equals(selected) ? low : "high".equals(selected) ? high : medium;
         target.setBackgroundResource(R.drawable.chip_selected);
         target.setTextColor(getResources().getColor(android.R.color.white));
     }
 
-    // Let the pager adapter (or other fragments) get the ref if needed
     public DatabaseReference getGoalsRef() { return goalsRef; }
 }

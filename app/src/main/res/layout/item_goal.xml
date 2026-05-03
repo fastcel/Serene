@@ -15,14 +15,12 @@
         android:layout_marginEnd="12dp"
         android:minHeight="48dp"/>
 
-    <!-- Checkbox -->
     <CheckBox
         android:id="@+id/checkGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"/>
 
-    <!-- Text block -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -39,7 +37,6 @@
             android:textColor="@color/text_color_purple"
             android:layout_marginBottom="3dp"/>
 
-        <!-- DATE -->
         <TextView
             android:id="@+id/tvGoalDate"
             android:layout_width="wrap_content"
@@ -49,7 +46,6 @@
             android:textColor="@color/text_color_purple"
             android:layout_marginBottom="2dp"/>
 
-        <!-- TIME -->
         <TextView
             android:id="@+id/tvGoalTime"
             android:layout_width="wrap_content"
@@ -59,14 +55,12 @@
             android:textColor="@color/text_color_purple"/>
     </LinearLayout>
 
-    <!-- RIGHT SIDE BADGES -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="end">
 
-        <!-- Priority badge -->
         <TextView
             android:id="@+id/tvPriority"
             android:layout_width="wrap_content"
@@ -81,7 +75,6 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/chip_selected"/>
 
-        <!-- Overdue badge -->
         <TextView
             android:id="@+id/tvOverdueBadge"
             android:layout_width="wrap_content"

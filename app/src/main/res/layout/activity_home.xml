@@ -5,14 +5,11 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!-- Main Content -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient_drawer">
-
         <TextView
             android:id="@+id/drawerHandle"
             android:layout_width="12dp"
@@ -42,18 +39,14 @@
             android:layout_height="130dp"
             android:background="@drawable/bg_bottom_nav_rounded"
             android:elevation="12dp"
-
             app:menu="@menu/bottom_menu"
             app:itemIconTint="@null"
             app:itemTextColor="@color/text_color_purple"
-
             app:itemIconSize="40dp"
             app:itemPaddingTop="26dp"
-
             app:labelVisibilityMode="labeled"
             app:itemTextAppearanceActive="@style/BottomNavTextActive"
             app:itemTextAppearanceInactive="@style/BottomNavTextInactive"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +54,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="280dp"

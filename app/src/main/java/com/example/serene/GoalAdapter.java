@@ -19,22 +19,18 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.List;
 
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder> {
-
     private final Context context;
     private List<Goal> goalList;
     private DatabaseReference goalsRef;
-
     public GoalAdapter(Context context, List<Goal> goalList, DatabaseReference goalsRef) {
         this.context = context;
         this.goalList = goalList;
         this.goalsRef = goalsRef;
     }
-
     public void updateList(List<Goal> newList) {
         this.goalList = newList;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
     public GoalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,10 +38,8 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
                 .inflate(R.layout.item_goal, parent, false);
         return new GoalViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull GoalViewHolder holder, int position) {
-
         Goal goal = goalList.get(position);
         holder.tvGoalTitle.setText(goal.getTitle());
         if (goal.getDate() != null && !goal.getDate().isEmpty()) {
@@ -62,7 +56,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         }
         applyPriority(holder.tvPriority, goal.getPriority());
         switch (goal.getStatus()) {
-
             case "completed":
                 holder.viewAccent.setBackgroundColor(Color.parseColor("#6058B0"));
                 holder.tvGoalTitle.setPaintFlags(
@@ -94,38 +87,28 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             showEditDialog(goal, holder.getAdapterPosition());
         });
         holder.checkGoal.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
             int pos = holder.getAdapterPosition();
             if (pos == RecyclerView.NO_POSITION) return;
-
             Goal g = goalList.get(pos);
             String newStatus = isChecked ? "completed" : "pending";
-
             g.setStatus(newStatus);
-
             if (goalsRef != null) {
                 goalsRef.child(g.getId())
                         .child("status")
                         .setValue(newStatus);
             }
-
             notifyItemChanged(pos);
         });
     }
 
-    // ---------------- PRIORITY ----------------
     private void applyPriority(TextView view, String priority) {
-
         if (priority == null) priority = "medium";
-
         switch (priority) {
-
             case "high":
                 view.setText("HIGH");
                 view.setBackgroundColor(Color.parseColor("#F8C8C8"));
                 view.setTextColor(Color.parseColor("#803040"));
                 break;
-
             case "low":
                 view.setText("LOW");
                 view.setBackgroundColor(Color.parseColor("#C8E8D0"));
@@ -144,7 +127,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
     public int getItemCount() {
         return goalList.size();
     }
-
     static class GoalViewHolder extends RecyclerView.ViewHolder {
         View viewAccent;
         CheckBox checkGoal;
@@ -153,7 +135,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         TextView tvGoalTime;
         TextView tvPriority;
         TextView tvOverdueBadge;
-
         GoalViewHolder(@NonNull View itemView) {
             super(itemView);
             viewAccent = itemView.findViewById(R.id.viewAccent);
@@ -165,7 +146,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             tvOverdueBadge = itemView.findViewById(R.id.tvOverdueBadge);
         }
     }
-
     private void showEditDialog(Goal goal, int position) {
         View dialogView = LayoutInflater.from(context)
                 .inflate(R.layout.dialog_add_goal, null);
@@ -242,13 +222,10 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         dialog.show();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
-
     private void updatePriorityUI(TextView low, TextView medium, TextView high, String selected) {
-
         low.setBackgroundResource(R.drawable.chip_unselected);
         medium.setBackgroundResource(R.drawable.chip_unselected);
         high.setBackgroundResource(R.drawable.chip_unselected);
-
         switch (selected) {
             case "low":
                 low.setBackgroundResource(R.drawable.chip_selected);

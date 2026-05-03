@@ -24,7 +24,6 @@
             android:layout_height="150dp"
             android:src="@drawable/serenelogo" />
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +138,6 @@
                     android:layout_marginStart="6dp"/>
             </LinearLayout>
 
-
             <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignIn"
             android:layout_width="match_parent"
@@ -160,8 +158,6 @@
                 android:layout_marginVertical="10dp"
                 android:textColor="@color/text_color_purple" />
 
-
-            <!-- Google Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGoogle"
                 android:layout_width="match_parent"
@@ -174,7 +170,6 @@
                 app:strokeColor="@color/purple"
                 android:backgroundTint="@android:color/white"/>
 
-            <!-- Sign Up Text -->
             <TextView
                 android:id="@+id/tvSignup1"
                 android:layout_width="wrap_content"

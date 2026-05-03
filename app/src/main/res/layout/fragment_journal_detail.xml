@@ -9,8 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <!-- ── HEADER ── -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,15 +40,12 @@
                         android:textStyle="bold"
                         android:textColor="@color/text_color_blue"
                         android:layout_marginBottom="8dp" />
-
-                    <!-- Date -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="4dp">
-
 
                         <TextView
                             android:id="@+id/tvJournalDate"
@@ -81,14 +76,12 @@
 
         </LinearLayout>
 
-        <!-- ── CONTENT ── -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- THEMES CARD -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,7 +117,6 @@
 
             </LinearLayout>
 
-            <!-- JOURNAL CONTENT -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -154,7 +146,6 @@
 
             </LinearLayout>
 
-            <!-- FAVORITE -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

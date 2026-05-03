@@ -14,7 +14,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- HEADER -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +50,6 @@
                     android:layout_height="100dp"/>
             </LinearLayout>
 
-            <!-- MOOD PICKER -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,7 +210,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- SECTION LABEL -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -223,7 +220,6 @@
                 android:textStyle="bold"
                 android:textColor="#2E2A5E"/>
 
-            <!-- WEEKLY MOOD CARD -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -232,7 +228,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Card Header -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -271,7 +266,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Mood Row: Happy -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -309,7 +303,6 @@
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
-                <!-- Mood Row: Sad -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -347,7 +340,6 @@
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
-                <!-- Mood Row: Anxious -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -385,7 +377,6 @@
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
-                <!-- Mood Row: Calm -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -423,7 +414,6 @@
                         android:layout_marginStart="8dp"/>
                 </LinearLayout>
 
-                <!-- Mood Row: Stressed -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -462,7 +452,6 @@
 
             </LinearLayout>
 
-            <!-- GOALS CARD -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -518,7 +507,6 @@
 
             </LinearLayout>
 
-            <!-- POMODORO CARD -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
