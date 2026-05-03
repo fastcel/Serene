@@ -240,6 +240,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         });
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void updatePriorityUI(TextView low, TextView medium, TextView high, String selected) {

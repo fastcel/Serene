@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CDD4F0">
+    android:background="@color/transparent">
 
     <!-- ── HEADER ── -->
     <LinearLayout
@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#B0B8E8"
         android:padding="20dp">
 
         <TextView
@@ -23,19 +22,13 @@
             android:text="Goals"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#1A1A4A"/>
+            android:textColor="@color/text_color_purple"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/btnAddGoal"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:text="+"
-            android:textSize="22sp"
-            android:textColor="#1A1A4A"
-            android:gravity="center"
-            android:background="@drawable/card_bg"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:src="@drawable/addgoal"/>
     </LinearLayout>
 
     <!-- ── TAB + VIEWPAGER ── -->
@@ -45,12 +38,14 @@
         android:layout_height="wrap_content"
         app:tabIndicatorColor="#1A1A4A"
         app:tabSelectedTextColor="#1A1A4A"
-        app:tabTextColor="#4A4A7A"/>
+        app:tabTextColor="#4A4A7A"
+        android:background="@color/transparent"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:background="@color/transparent"/>
 
 </LinearLayout>
