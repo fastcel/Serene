@@ -1,14 +1,575 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    android:background="#E8E6F8"
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</FrameLayout>
+        <!-- HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="May 3, 2026"
+                    android:textSize="14sp"
+                    android:textColor="#7B78A8"/>
+
+                <TextView
+                    android:id="@+id/tvGreeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Good morning, User"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E2A5E"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/default_avatar"/>
+        </LinearLayout>
+
+        <!-- MOOD PICKER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:background="@drawable/chip_unselected"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How are you feeling today?"
+                android:textSize="18sp"
+                android:textColor="#5B54A8"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/moodHappy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😊"
+                        android:textSize="26sp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Happy"
+                        android:textSize="10sp"
+                        android:textColor="#9E9BC0"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/moodSad"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😔"
+                        android:textSize="26sp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sad"
+                        android:textSize="10sp"
+                        android:textColor="#9E9BC0"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/moodAnxious"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😰"
+                        android:textSize="26sp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Anxious"
+                        android:textSize="10sp"
+                        android:textColor="#9E9BC0"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/moodCalm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😌"
+                        android:textSize="26sp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Calm"
+                        android:textSize="10sp"
+                        android:textColor="#9E9BC0"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/moodStressed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😤"
+                        android:textSize="26sp"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stressed"
+                        android:textSize="10sp"
+                        android:textColor="#9E9BC0"
+                        android:gravity="center"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- SECTION LABEL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Today's snapshot"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#2E2A5E"/>
+
+        <!-- WEEKLY MOOD CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/chip_unselected"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Card Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="#EDE9FF"
+                    android:text="📊"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="This week's moods"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#2E2A5E"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mon – Sun"
+                        android:textSize="14sp"
+                        android:textColor="#9E9BC0"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Mood Row: Happy -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="😊 Happy"
+                    android:textSize="14sp"
+                    android:textColor="#5B54A8"/>
+
+                <ProgressBar
+                    android:id="@+id/progressHappy"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="80"
+                    android:indeterminate="false"
+                    android:progressTint="#F6C344"
+                    android:progressBackgroundTint="#FEF6D8"/>
+
+                <TextView
+                    android:id="@+id/tvHappyCount"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:text="4x"
+                    android:textSize="14sp"
+                    android:textColor="#9E9BC0"
+                    android:gravity="end"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Mood Row: Sad -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="😔 Sad"
+                    android:textSize="14sp"
+                    android:textColor="#5B54A8"/>
+
+                <ProgressBar
+                    android:id="@+id/progressSad"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="20"
+                    android:indeterminate="false"
+                    android:progressTint="#7B9FE8"
+                    android:progressBackgroundTint="#E6EDFC"/>
+
+                <TextView
+                    android:id="@+id/tvSadCount"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:text="1x"
+                    android:textSize="14sp"
+                    android:textColor="#9E9BC0"
+                    android:gravity="end"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Mood Row: Anxious -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="😰 Anxious"
+                    android:textSize="14sp"
+                    android:textColor="#5B54A8"/>
+
+                <ProgressBar
+                    android:id="@+id/progressAnxious"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="60"
+                    android:indeterminate="false"
+                    android:progressTint="#E87B9F"
+                    android:progressBackgroundTint="#FCE6ED"/>
+
+                <TextView
+                    android:id="@+id/tvAnxiousCount"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:text="3x"
+                    android:textSize="13sp"
+                    android:textColor="#9E9BC0"
+                    android:gravity="end"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Mood Row: Calm -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="😌 Calm"
+                    android:textSize="14sp"
+                    android:textColor="#5B54A8"/>
+
+                <ProgressBar
+                    android:id="@+id/progressCalm"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="100"
+                    android:indeterminate="false"
+                    android:progressTint="#5DC4A5"
+                    android:progressBackgroundTint="#E1F5EE"/>
+
+                <TextView
+                    android:id="@+id/tvCalmCount"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:text="5x"
+                    android:textSize="13sp"
+                    android:textColor="#9E9BC0"
+                    android:gravity="end"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Mood Row: Stressed -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="😤 Stressed"
+                    android:textSize="14sp"
+                    android:textColor="#5B54A8"/>
+
+                <ProgressBar
+                    android:id="@+id/progressStressed"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="12dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="40"
+                    android:indeterminate="false"
+                    android:progressTint="#E89B7B"
+                    android:progressBackgroundTint="#FCF0E6"/>
+
+                <TextView
+                    android:id="@+id/tvStressedCount"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:text="2x"
+                    android:textSize="13sp"
+                    android:textColor="#9E9BC0"
+                    android:gravity="end"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- GOALS CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/chip_unselected"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="#FFE9E9"
+                    android:src="@drawable/goals"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Goals"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E2A5E"/>
+
+                <TextView
+                    android:id="@+id/tvGoalsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3/5 done"
+                    android:textSize="14sp"
+                    android:textColor="#9E9BC0"/>
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressGoals"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:max="100"
+                android:progress="60"
+                android:indeterminate="false"
+                android:progressTint="#7B6FD8"
+                android:progressBackgroundTint="#EDE9FF"/>
+
+        </LinearLayout>
+
+        <!-- POMODORO CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/chip_unselected"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="#E8F5FF"
+                android:src="@drawable/focus"
+                android:textSize="15sp"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pomodoro"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E2A5E"/>
+
+                <TextView
+                    android:id="@+id/tvPomodoroSessions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Want to boost productivity? Start a focus session now~"
+                    android:textSize="14sp"
+                    android:textColor="@color/purple"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnStartPomodoro"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="Start →"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
