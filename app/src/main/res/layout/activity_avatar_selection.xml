@@ -44,16 +44,11 @@
             app:cardCornerRadius="24dp"
             app:cardElevation="0dp">
 
-            <FrameLayout
+            <com.example.serene.AvatarView
+                android:id="@+id/avatarView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light_blue">
+                android:layout_height="match_parent"/>
 
-                <com.example.serene.AvatarView
-                    android:id="@+id/avatarView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
         <!-- Controls -->
@@ -77,9 +72,9 @@
                 android:background="@color/purple"
                 android:layout_marginHorizontal="8dp"/>
 
-            <!-- Face -->
+            <!-- Eyes -->
             <include
-                android:id="@+id/rowFace"
+                android:id="@+id/rowEyes"
                 layout="@layout/item_avatar_control"/>
 
             <View
@@ -88,9 +83,9 @@
                 android:background="@color/purple"
                 android:layout_marginHorizontal="8dp"/>
 
-            <!-- Color -->
+            <!-- Mouth -->
             <include
-                android:id="@+id/rowColor"
+                android:id="@+id/rowMouth"
                 layout="@layout/item_avatar_control"/>
 
         </LinearLayout>

@@ -45,11 +45,10 @@
                         android:textColor="#2E2A5E"/>
                 </LinearLayout>
 
-                <ImageView
+                <com.example.serene.AvatarView
                     android:id="@+id/imgAvatar"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/default_avatar"/>
+                    android:layout_height="100dp"/>
             </LinearLayout>
 
             <!-- MOOD PICKER -->

@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     private View loadingOverlay;
     private int loadingTasks = 0;
     private final String todayKey = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+
     public HomeFragment() {}
 
     @Override
@@ -65,6 +66,8 @@ public class HomeFragment extends Fragment {
         db     = FirebaseDatabase.getInstance().getReference("users").child(userId);
         btnStartPomodoro = view.findViewById(R.id.btnStartPomodoro);
         loadingOverlay = view.findViewById(R.id.loadingOverlay);
+
+        AvatarManager.loadInto(view.findViewById(R.id.imgAvatar));
 
         setupDate();
         loadUsername();

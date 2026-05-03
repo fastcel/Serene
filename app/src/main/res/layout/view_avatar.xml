@@ -1,0 +1,37 @@
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/avatar_circle"
+    android:clipToOutline="true">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleX="1.6"
+        android:scaleY="1.6">
+
+        <ImageView
+            android:id="@+id/imgBase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"/>
+
+        <ImageView
+            android:id="@+id/imgEyes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"/>
+
+        <ImageView
+            android:id="@+id/imgMouth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"/>
+
+        <ImageView
+            android:id="@+id/imgAccessory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"/>
+
+    </FrameLayout>
+</FrameLayout>
