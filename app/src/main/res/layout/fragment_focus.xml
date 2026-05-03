@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_purple"
+    android:background="@color/transparent"
     android:fillViewport="true">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="18dp"
             android:text="Focus"
-            android:textColor="@color/pastel_blue"
+            android:textColor="@color/text_color_purple"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
                     android:layout_marginTop="4dp"
                     android:letterSpacing="0.05"
                     android:text="25:00"
-                    android:textColor="@color/purple"
+                    android:textColor="@color/text_color_purple"
                     android:textSize="52sp"
                     android:textStyle="bold" />
 
@@ -75,6 +75,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/text_color_purple"
                 android:gravity="center"
                 android:text="↺"
                 android:textColor="@color/black"
@@ -94,6 +95,7 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/text_color_purple"
                 android:gravity="center"
                 android:text="⏭"
                 android:textColor="@color/black"
@@ -107,6 +109,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/chip_unselected"
+            android:backgroundTint="@color/text_color_purple"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -126,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="CURRENT SESSION"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_color_purple"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.08" />
@@ -137,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="No session started"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_color_purple"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -147,6 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/chip_selected"
+                    android:backgroundTint="@color/purple"
                     android:gravity="center"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="8dp"

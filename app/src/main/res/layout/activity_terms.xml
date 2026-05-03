@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient_drawer"
+    android:padding="20dp">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="←"
+            android:textSize="22sp"
+            android:textColor="@color/text_color_purple"
+            android:padding="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terms &amp; Conditions"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_color_purple"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+
+    <!-- CONTENT -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_purple"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:text="Welcome to Serene.\n\n
+By using this app, you agree to the following terms:\n\n
+
+• Your data (journals, goals, etc.) is stored securely using Firebase.\n\n
+
+• You are responsible for maintaining the confidentiality of your account.\n\n
+
+• Journal lock PIN is your responsibility. We cannot recover it.\n\n
+
+• This app is intended for personal wellness and productivity purposes only.\n\n
+
+• We do not share your personal data with third parties.\n\n
+
+• Misuse of the platform may result in account suspension.\n\n
+
+By continuing, you agree to these terms." />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

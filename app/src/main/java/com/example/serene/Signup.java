@@ -32,7 +32,7 @@ public class Signup extends AppCompatActivity {
 
     private TextInputEditText etUsername, etEmail, etPassword, etConfirmPassword;
     private MaterialButton btnCreateAccount;
-    TextView tvLogin;
+    TextView tvLogin,tvTerms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,12 @@ public class Signup extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
         tvLogin = findViewById(R.id.tvLogin1);
+        tvTerms = findViewById(R.id.tvTerms);
+
+        tvTerms.setOnClickListener(v->{
+            Intent intent = new Intent(Signup.this, TermsActivity.class);
+            startActivity(intent);
+        });
 
         btnCreateAccount.setOnClickListener(v -> registerUser());
 

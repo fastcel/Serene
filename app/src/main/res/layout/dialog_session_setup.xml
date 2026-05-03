@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/light_purple"
+    android:background="@drawable/card_bg"
     android:padding="20dp">
 
     <LinearLayout
@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Set up your session"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_blue"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="How long is your work session?"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_blue"
             android:textSize="13sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
@@ -42,6 +42,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/chip_selected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="25 min"
@@ -56,10 +57,11 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="45 min"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -69,10 +71,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="60 min"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -83,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="What kind of break?"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_blue"
             android:textSize="13sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp" />
@@ -101,6 +104,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/chip_selected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="Short break"
@@ -114,10 +118,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="Long break"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -138,6 +143,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/chip_selected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="5 min"
@@ -152,10 +158,11 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="10 min"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -165,10 +172,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="15 min"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -190,10 +198,11 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="20 min"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -204,10 +213,11 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="35 min"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -217,10 +227,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/chip_unselected"
+                android:backgroundTint="@color/pastel_blue"
                 android:gravity="center"
                 android:paddingVertical="10dp"
                 android:text="50 min"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_blue"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -232,6 +243,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/chip_selected"
+            android:backgroundTint="@color/pastel_blue"
             android:gravity="center"
             android:paddingVertical="14dp"
             android:text="Start session"
@@ -245,10 +257,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/chip_unselected"
+            android:backgroundTint="@color/pastel_blue"
             android:gravity="center"
             android:paddingVertical="14dp"
             android:text="Cancel"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_blue"
             android:textSize="15sp"
             android:textStyle="bold" />
 
