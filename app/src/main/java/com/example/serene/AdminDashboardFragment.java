@@ -47,7 +47,16 @@ public class AdminDashboardFragment extends Fragment {
         usersRef = FirebaseDatabase.getInstance().getReference("users");
         userList = new ArrayList<>();
         userIds = new ArrayList<>();
-        adapter = new UserAdapter(userList, userIds);
+        adapter = new UserAdapter(userList, userIds, uid -> {
+
+            UserDetailsFragment fragment = UserDetailsFragment.newInstance(uid);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.admin_fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
         recyclerUsers.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerUsers.setAdapter(adapter);
         loadUsers();

@@ -16,14 +16,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
-
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     private List<User> userList;
     private List<String> userIds;
-    public UserAdapter(List<User> userList, List<String> userIds) {
+    private OnUserClickListener listener;
+    public UserAdapter(List<User> userList, List<String> userIds, OnUserClickListener listener) {
         this.userList = userList;
         this.userIds = userIds;
+        this.listener = listener;
     }
+    public interface OnUserClickListener {
+        void onUserClick(String uid);
+    }
+
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,10 +48,28 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 .getReference("users")
                 .child(uid);
         holder.btnDelete.setOnClickListener(v -> {
-            userRef.removeValue();
-            userList.remove(position);
-            userIds.remove(position);
-            notifyItemRemoved(position);
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setTitle("Delete User");
+            builder.setMessage("Are you sure you want to delete this user?");
+            builder.setPositiveButton("Delete", (dialog, which) -> {
+                userRef.removeValue();
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    userList.remove(pos);
+                    userIds.remove(pos);
+                    notifyItemRemoved(pos);
+                }
+                Toast.makeText(v.getContext(), "User deleted", Toast.LENGTH_SHORT).show();
+            });
+
+            builder.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            builder.show();
+        });
+        holder.itemView.setOnClickListener(v -> {
+            listener.onUserClick(uid);
         });
         holder.btnEdit.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
