@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/card_bg"
     android:padding="20dp">
@@ -179,17 +180,17 @@
             android:layout_weight="1"
             android:text="Cancel"
             android:textSize="13sp"
-            android:textColor="#6A6AAA"
+            android:textColor="@color/text_color_blue"
             android:gravity="center"
             android:background="@drawable/chip_unselected"
-            android:backgroundTint="#CDD4F0"
+            android:backgroundTint="@color/pastel_blue"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="true"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveGoal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -199,11 +200,9 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:gravity="center"
-            android:background="@color/light_purple"
+            android:backgroundTint="@color/pastel_blue"
             android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:paddingBottom="12dp" />
 
     </LinearLayout>
 

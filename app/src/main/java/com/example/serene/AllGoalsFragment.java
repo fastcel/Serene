@@ -31,6 +31,8 @@ public class AllGoalsFragment extends Fragment {
 
     private RecyclerView recyclerGoals;
     private LinearLayout layoutEmptyState;
+    private View progress;
+
     private GoalAdapter goalAdapter;
     private final List<Goal> allGoals = new ArrayList<>();
     private DatabaseReference goalsRef;
@@ -40,20 +42,22 @@ public class AllGoalsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_all_goals, container, false);
 
-        recyclerGoals    = view.findViewById(R.id.recyclerGoals);
+        recyclerGoals = view.findViewById(R.id.recyclerGoals);
         layoutEmptyState = view.findViewById(R.id.layoutEmptyState);
+        progress = view.findViewById(R.id.progressGoals);
 
-        // Get the ref from the parent instead of creating a second Firebase connection
         if (getParentFragment() instanceof GoalsFragment) {
             goalsRef = ((GoalsFragment) getParentFragment()).getGoalsRef();
         }
 
-        if (goalsRef == null) return view;   // safety guard
+        if (goalsRef == null) return view;
 
         setupRecyclerView();
         loadGoals();
+
         return view;
     }
 
@@ -64,21 +68,37 @@ public class AllGoalsFragment extends Fragment {
     }
 
     private void loadGoals() {
+
+        showLoading();
+
         goalsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+
                 allGoals.clear();
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Goal goal = ds.getValue(Goal.class);
                     if (goal == null) continue;
+
                     checkAndMarkOverdue(goal);
                     allGoals.add(goal);
                 }
-                updateUI();
+
+                if (!isAdded()) return;
+
+                goalAdapter.updateList(allGoals);
+
+                if (allGoals.isEmpty()) {
+                    showEmpty();
+                } else {
+                    showList();
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
+                showEmpty();
                 Toast.makeText(getContext(), "Failed to load goals", Toast.LENGTH_SHORT).show();
             }
         });
@@ -87,24 +107,42 @@ public class AllGoalsFragment extends Fragment {
     private void checkAndMarkOverdue(Goal goal) {
         if (goal.getDate() == null || goal.getDate().isEmpty()) return;
         if ("completed".equals(goal.getStatus())) return;
+
         try {
             String time = (goal.getTime() == null || goal.getTime().isEmpty()) ? "23:59" : goal.getTime();
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
             sdf.setLenient(false);
+
             Date due = sdf.parse(goal.getDate() + " " + time);
+
             if (due != null && due.before(new Date())) {
                 goal.setStatus("overdue");
                 goalsRef.child(goal.getId()).child("status").setValue("overdue");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void updateUI() {
-        goalAdapter.updateList(allGoals);
-        boolean empty = allGoals.isEmpty();
-        recyclerGoals.setVisibility(empty ? View.GONE : View.VISIBLE);
-        layoutEmptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
+    // ---------------- UI STATES ----------------
+
+    private void showLoading() {
+        progress.setVisibility(View.VISIBLE);
+        recyclerGoals.setVisibility(View.GONE);
+        layoutEmptyState.setVisibility(View.GONE);
+    }
+
+    private void showEmpty() {
+        progress.setVisibility(View.GONE);
+        recyclerGoals.setVisibility(View.GONE);
+        layoutEmptyState.setVisibility(View.VISIBLE);
+    }
+
+    private void showList() {
+        progress.setVisibility(View.GONE);
+        recyclerGoals.setVisibility(View.VISIBLE);
+        layoutEmptyState.setVisibility(View.GONE);
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class GoalsFragment extends Fragment {
 
     ViewPager2 viewPager;
     TabLayout tabLayout;
-    TextView btnAddGoal;
+    ImageView btnAddGoal;
 
     private GoalsPagerAdapter adapter;
     private DatabaseReference goalsRef;   // ← moved here
@@ -149,6 +150,7 @@ public class GoalsFragment extends Fragment {
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void updatePriorityUI(TextView low, TextView medium, TextView high, String selected) {
