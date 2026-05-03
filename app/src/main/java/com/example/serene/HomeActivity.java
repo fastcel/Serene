@@ -100,9 +100,13 @@ public class HomeActivity extends AppCompatActivity {
                 item.setChecked(true);
             }
 
-            if (bottomNav.getSelectedItemId() != id) {
-                bottomNav.setSelectedItemId(id);
-                animateNavItem(id);
+            if (id != R.id.nav_settings) {
+                if (bottomNav.getSelectedItemId() != id) {
+                    bottomNav.setSelectedItemId(id);
+                    animateNavItem(id);
+                }
+            } else {
+                clearBottomSelection();
             }
 
             handleNavigation(id);
@@ -152,6 +156,7 @@ public class HomeActivity extends AppCompatActivity {
 
         } else if (id == R.id.nav_settings) {
             fragment = new SettingsFragment();
+            clearBottomSelection();
 
         } else if (id == R.id.nav_logout) {
 
@@ -205,5 +210,15 @@ public class HomeActivity extends AppCompatActivity {
                         .setDuration(150)
                         .start())
                 .start();
+    }
+
+    private void clearBottomSelection() {
+        // clear visual
+        for (int i = 0; i < bottomNav.getMenu().size(); i++) {
+            bottomNav.getMenu().getItem(i).setChecked(false);
+        }
+
+        // 🔥 reset internal state
+        bottomNav.setSelectedItemId(View.NO_ID);
     }
 }

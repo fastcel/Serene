@@ -1,17 +1,23 @@
 package com.example.serene;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.*;
 
 public class JournalLockFragment extends Fragment {
+
+    EditText etPin;
+    Button btnUnlock;
+
+    String storedPin = null;
 
     public JournalLockFragment() {
         super(R.layout.fragment_journal_lock);
@@ -21,34 +27,64 @@ public class JournalLockFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        EditText etPin = view.findViewById(R.id.etPin);
-        Button btnUnlock = view.findViewById(R.id.btnUnlock);
+        etPin = view.findViewById(R.id.etPin);
+        btnUnlock = view.findViewById(R.id.btnUnlock);
+
+        loadPinFromDB();
 
         btnUnlock.setOnClickListener(v -> {
 
-            String enteredPin = etPin.getText().toString();
+            String enteredPin = etPin.getText().toString().trim();
 
-            if (enteredPin.length() != 4) {
+            if (TextUtils.isEmpty(enteredPin) || enteredPin.length() != 4) {
                 etPin.setError("Enter 4-digit PIN");
                 return;
             }
 
-            if (isCorrectPin(enteredPin)) {
+            if (storedPin == null) {
+                // No PIN set → allow access
+                unlock();
+                return;
+            }
 
-                JournalFragment parent = (JournalFragment) getParentFragment();
-
-//                parent.setUnlocked(true);
-
-                parent.loadRoot(new JournalListFragment());
-
+            if (enteredPin.equals(storedPin)) {
+                unlock();
             } else {
                 etPin.setError("Incorrect PIN");
             }
         });
     }
 
-    private boolean isCorrectPin(String pin) {
-        // TEMP: hardcoded (you can store this later)
-        return pin.equals("1234");
+    private void loadPinFromDB() {
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) return;
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference("users")
+                .child(uid);
+
+        ref.get().addOnSuccessListener(snapshot -> {
+
+            if (snapshot.exists()) {
+                storedPin = snapshot.child("journalPin").getValue(String.class);
+
+                Boolean isLocked = snapshot.child("journalLock").getValue(Boolean.class);
+
+                // If lock is OFF → skip lock screen entirely
+                if (isLocked == null || !isLocked) {
+                    unlock();
+                }
+            }
+
+        });
+    }
+
+    private void unlock() {
+        JournalFragment parent = (JournalFragment) getParentFragment();
+        if (parent != null) {
+            parent.loadRoot(new JournalListFragment());
+        }
     }
 }

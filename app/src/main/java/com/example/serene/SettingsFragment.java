@@ -271,28 +271,41 @@ public class SettingsFragment extends Fragment {
 
     private void showVerifyPinDialog(String existingPin, String newPin, String username) {
 
-        EditText input = new EditText(getContext());
-        input.setHint("Enter current PIN");
-        input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER |
-                android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        View dialogView = LayoutInflater.from(getContext())
+                .inflate(R.layout.dialog_verify_pin, null);
 
-        new AlertDialog.Builder(getContext())
-                .setTitle("Verify PIN")
-                .setView(input)
+        EditText etPin = dialogView.findViewById(R.id.etVerifyPin);
+        TextView btnCancel = dialogView.findViewById(R.id.btnCancel);
+        com.google.android.material.button.MaterialButton btnVerify =
+                dialogView.findViewById(R.id.btnVerify);
+
+        AlertDialog dialog = new AlertDialog.Builder(getContext())
+                .setView(dialogView)
                 .setCancelable(false)
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Verify", (dialog, which) -> {
+                .create();
 
-                    String entered = input.getText().toString().trim();
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
 
-                    if (!entered.equals(existingPin)) {
-                        Toast.makeText(getContext(), "Incorrect PIN", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+        btnVerify.setOnClickListener(v -> {
 
-                    updateSettings(username, newPin);
-                })
-                .show();
+            String entered = etPin.getText().toString().trim();
+
+            if (entered.length() != 4) {
+                etPin.setError("Enter 4-digit PIN");
+                return;
+            }
+
+            if (!entered.equals(existingPin)) {
+                etPin.setError("Incorrect PIN");
+                return;
+            }
+
+            dialog.dismiss();
+            updateSettings(username, newPin);
+        });
+
+        dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void updateSettings(String username, String pin) {
