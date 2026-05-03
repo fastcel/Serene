@@ -19,14 +19,14 @@
             android:text="Express Yourself"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:textColor="#008080"/>
+            android:textColor="@color/text_color_blue"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Write your thoughts freely and track your emotional journey every day."
             android:textSize="20sp"
-            android:textColor="#96DED1"
+            android:textColor="@color/text_color_blue"
             android:layout_marginTop="8dp"/>
     </LinearLayout>
 
@@ -46,7 +46,7 @@
         android:layout_height="50dp"
         android:text="Start Now"
         android:textColor="#FFFFFF"
-        android:backgroundTint="#A020F0"
+        android:backgroundTint="@color/pastel_blue"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>
