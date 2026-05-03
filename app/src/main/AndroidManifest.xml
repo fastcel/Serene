@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Serene">
+<!--        <activity-->
+<!--            android:name=".AdminActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".AvatarSelectionActivity"
             android:exported="false"
@@ -21,19 +24,16 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" /> <!-- <activity -->
-
         <activity
-         android:name=".Signup"
-         android:exported="false" />
-
-<!--        <activity-->
-<!--            android:name=".Login"-->
-<!--            android:exported="false" />-->
+            android:name=".Signup"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".Login" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".AdminActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
