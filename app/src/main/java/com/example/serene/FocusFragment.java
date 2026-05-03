@@ -176,6 +176,7 @@ public class FocusFragment extends Fragment {
             dialog.dismiss();
         });
         dialog.show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     private void startTimer() {
