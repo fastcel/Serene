@@ -18,14 +18,14 @@
             android:text="Set Goals and Grow"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:textColor="#A020F0"/>
+            android:textColor="@color/text_color_purple"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Track habits, complete goals and improve step by step."
             android:textSize="20sp"
-            android:textColor="#6F8FAF"
+            android:textColor="@color/text_color_purple"
             android:layout_marginTop="8dp"/>
     </LinearLayout>
 
@@ -45,7 +45,7 @@
         android:layout_height="50dp"
         android:text="Start Now"
         android:textColor="#FFFFFF"
-        android:backgroundTint="#A020F0"
+        android:backgroundTint="@color/purple"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>

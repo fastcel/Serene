@@ -8,12 +8,10 @@
     android:padding="16dp"
     android:background="@drawable/bg_header_drawer_gradient">
 
-    <ImageView
+    <com.example.serene.AvatarView
         android:id="@+id/imgAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/default_avatar"
-        android:scaleType="centerCrop"
         android:background="@drawable/avatar_circle"
         android:padding="4dp"/>
 

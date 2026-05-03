@@ -1,6 +1,7 @@
 package com.example.serene;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import java.util.Map;
 
 public class SettingsFragment extends Fragment {
 
-    ImageView imgAvatar;
     TextView btnEditAvatar, btnChangePassword;
     EditText etUsername, etEmail, etPin;
     Switch switchLock;
@@ -43,6 +43,8 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        AvatarManager.loadInto(view.findViewById(R.id.imgAvatar));
+
         initViews(view);
         initFirebase();
         setupListeners();
@@ -53,7 +55,6 @@ public class SettingsFragment extends Fragment {
     // ---------------- INIT ----------------
 
     private void initViews(View view) {
-        imgAvatar = view.findViewById(R.id.imgAvatar);
         btnEditAvatar = view.findViewById(R.id.btnEditAvatar);
         btnChangePassword = view.findViewById(R.id.btnChangePassword);
 
@@ -117,7 +118,11 @@ public class SettingsFragment extends Fragment {
 
     private void setupListeners() {
 
-        btnEditAvatar.setOnClickListener(v ->{}
+        btnEditAvatar.setOnClickListener(v ->{
+                Intent intent = new Intent(getContext(), AvatarSelectionActivity.class);
+                intent.putExtra("isEdit", true);
+                startActivity(intent);
+            }
         );
 
         btnChangePassword.setOnClickListener(v -> showChangePasswordDialog());
@@ -332,4 +337,11 @@ public class SettingsFragment extends Fragment {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AvatarManager.loadInto(getView().findViewById(R.id.imgAvatar));
+    }
+
 }

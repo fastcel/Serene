@@ -9,6 +9,9 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView logo;
@@ -20,15 +23,26 @@ public class MainActivity extends AppCompatActivity {
 
         logo = findViewById(R.id.logo);
 
-        // Load animation
+        // Animation
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.logo_fade_in);
         logo.startAnimation(fadeIn);
 
-        // Navigate to Onboarding after delay
+        // Delay
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, OnboardingScreen.class);
+
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            Intent intent;
+
+            if (user != null) {
+                intent = new Intent(MainActivity.this, Login.class);
+            } else {
+                intent = new Intent(MainActivity.this, OnboardingScreen.class);
+            }
+
             startActivity(intent);
-            finish(); // prevents going back to splash
-        }, 2000); // 2 seconds splash duration
+            finish();
+
+        }, 3000);
     }
 }

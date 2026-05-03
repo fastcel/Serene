@@ -30,8 +30,9 @@ public class OnboardingScreen extends AppCompatActivity {
         dotsLayout = findViewById(R.id.dotsLayout);
 
         viewPager.setAdapter(new OnboardingAdapter(this));
+        viewPager.setCurrentItem(0, false);
 
-        setupDots(0);
+        viewPager.post(() -> setupDots(0));
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

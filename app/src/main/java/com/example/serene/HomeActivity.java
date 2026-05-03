@@ -20,6 +20,8 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -34,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         initViews();
+        loadAvatar();
 
         findViewById(R.id.drawerHandle).bringToFront();
 
@@ -95,6 +98,18 @@ public class HomeActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
 
             int id = item.getItemId();
+
+            if (id == R.id.nav_logout) {
+
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(HomeActivity.this, Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+
+                return true;
+            }
 
             // avoid loops
             if (navigationView.getCheckedItem() == null ||
@@ -161,15 +176,6 @@ public class HomeActivity extends AppCompatActivity {
         } else if (id == R.id.nav_settings) {
             fragment = new SettingsFragment();
             clearBottomSelection();
-
-        } else if (id == R.id.nav_logout) {
-
-            FirebaseAuth.getInstance().signOut();
-            Intent intent = new Intent(HomeActivity.this, Login.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-            return;
         }
 
         if (fragment != null) {
@@ -242,5 +248,19 @@ public class HomeActivity extends AppCompatActivity {
             clearBottomSelection();
             handleNavigation(id); // settings isn't in bottom nav
         }
+    }
+
+    private void loadAvatar() {
+
+        View header = navigationView.getHeaderView(0);
+        AvatarView avatarView = header.findViewById(R.id.imgAvatar);
+
+        AvatarManager.loadInto(avatarView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadAvatar();
     }
 }
