@@ -66,10 +66,20 @@ public class Login extends AppCompatActivity {
         prefs = getSharedPreferences("serene_prefs", MODE_PRIVATE);
 
         cbRememberMe.setChecked(prefs.getBoolean("remember_me", false));
-        if (prefs.getBoolean("remember_me", false)
-                && FirebaseAuth.getInstance().getCurrentUser() != null) {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (prefs.getBoolean("remember_me", false) && auth.getCurrentUser() != null) {
 
-            startActivity(new Intent(Login.this, HomeActivity.class));
+            String role = prefs.getString("user_role", "user");
+
+            Intent intent;
+
+            if (role.equals("admin")) {
+                intent = new Intent(Login.this, AdminActivity.class);
+            } else {
+                intent = new Intent(Login.this, HomeActivity.class);
+            }
+
+            startActivity(intent);
             finish();
         }
 
@@ -212,21 +222,25 @@ public class Login extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            prefs.edit()
-                                    .putBoolean("remember_me", cbRememberMe.isChecked())
-                                    .apply();
-                            Intent intent;
-                            if (email.equals("admin@gmail.com")){
-                                intent = new Intent(Login.this, AdminActivity.class);
-                            }
-                            else{
-                                intent = new Intent(Login.this, HomeActivity.class);
-                            }
-                            startActivity(intent);
-                            finish();
+
+                        prefs.edit()
+                                .putBoolean("remember_me", cbRememberMe.isChecked())
+                                .putString("user_role",
+                                        email.equals("admin@gmail.com") ? "admin" : "user")
+                                .apply();
+
+                        Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                        Intent intent;
+
+                        if (email.equals("admin@gmail.com")) {
+                            intent = new Intent(Login.this, AdminActivity.class);
+                        } else {
+                            intent = new Intent(Login.this, HomeActivity.class);
                         }
+
+                        startActivity(intent);
+                        finish();
 
                     } else {
                         Toast.makeText(Login.this,
