@@ -217,7 +217,13 @@ public class Login extends AppCompatActivity {
                             prefs.edit()
                                     .putBoolean("remember_me", cbRememberMe.isChecked())
                                     .apply();
-                            Intent intent = new Intent(Login.this, HomeActivity.class);
+                            Intent intent;
+                            if (email.equals("admin@gmail.com")){
+                                intent = new Intent(Login.this, AdminActivity.class);
+                            }
+                            else{
+                                intent = new Intent(Login.this, HomeActivity.class);
+                            }
                             startActivity(intent);
                             finish();
                         }
