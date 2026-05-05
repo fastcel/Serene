@@ -5,11 +5,13 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient_drawer">
+
         <TextView
             android:id="@+id/drawerHandle"
             android:layout_width="12dp"
@@ -21,8 +23,7 @@
             android:layout_marginStart="4dp"
             android:text="@string/right_arrow"
             android:gravity="center"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainer"
@@ -31,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/bottomNav"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
@@ -50,7 +51,31 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"/>
+            android:layout_margin="16dp" />
+
+        <ImageView
+            android:id="@+id/speakerIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/speaker"
+            android:scaleType="centerCrop"
+            android:elevation="16dp"
+            app:layout_constraintEnd_toEndOf="@id/bottomNav"
+            app:layout_constraintBottom_toTopOf="@id/bottomNav"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="-15dp" />
+
+        <ImageView
+            android:id="@+id/fireIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/fire"
+            android:scaleType="centerCrop"
+            android:elevation="16dp"
+            app:layout_constraintStart_toStartOf="@id/bottomNav"
+            app:layout_constraintBottom_toTopOf="@id/bottomNav"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="-15dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -69,6 +94,6 @@
         app:itemIconSize="40dp"
         app:itemTextAppearance="@style/NavItemText"
         app:itemVerticalPadding="16dp"
-        app:itemBackground="@drawable/nav_item_background"/>
+        app:itemBackground="@drawable/nav_item_background" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
