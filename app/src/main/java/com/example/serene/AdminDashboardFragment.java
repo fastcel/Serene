@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,12 +30,15 @@ public class AdminDashboardFragment extends Fragment {
     private UserAdapter adapter;
     private List<User> userList;
     private List<String> userIds;
+    private TextView tvLoading, tvEmpty;
 
     public AdminDashboardFragment() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false);
+        tvLoading = view.findViewById(R.id.tvLoading);
+        tvEmpty = view.findViewById(R.id.tvEmpty);
         recyclerUsers = view.findViewById(R.id.recyclerUsers);
         btnRefresh = view.findViewById(R.id.btnRefresh);
         btnAddUser = view.findViewById(R.id.btnAddUser);
@@ -60,23 +64,51 @@ public class AdminDashboardFragment extends Fragment {
         return view;
     }
     private void loadUsers() {
+        tvLoading.setVisibility(View.VISIBLE);
+        tvEmpty.setVisibility(View.GONE);
+        recyclerUsers.setVisibility(View.GONE);
+
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 userList.clear();
                 userIds.clear();
+
+                if (!snapshot.exists() || snapshot.getChildrenCount() == 0) {
+                    tvLoading.setVisibility(View.GONE);
+                    tvEmpty.setVisibility(View.VISIBLE);
+                    recyclerUsers.setVisibility(View.GONE);
+
+                    return;
+                }
+
                 for (DataSnapshot userSnap : snapshot.getChildren()) {
+
                     String uid = userSnap.getKey();
                     String username = userSnap.child("username").getValue(String.class);
                     String email = userSnap.child("email").getValue(String.class);
+
                     if (email == null) continue;
+
                     userList.add(new User(username, email));
                     userIds.add(uid);
                 }
+
                 adapter.notifyDataSetChanged();
+
+                tvLoading.setVisibility(View.GONE);
+                tvEmpty.setVisibility(View.GONE);
+                recyclerUsers.setVisibility(View.VISIBLE);
             }
+
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                tvLoading.setVisibility(View.GONE);
+                tvEmpty.setText("Error loading users");
+                tvEmpty.setVisibility(View.VISIBLE);
+            }
         });
     }
 
