@@ -3,7 +3,9 @@ package com.example.serene;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,11 +25,17 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import androidx.appcompat.app.AlertDialog;
+import android.graphics.drawable.ColorDrawable;
+import android.view.LayoutInflater;
+import android.widget.RadioGroup;
+import androidx.appcompat.widget.SwitchCompat;
 
 public class HomeActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     BottomNavigationView bottomNav;
+    ImageView speaker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +56,9 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.drawerHandle).setOnClickListener(v ->
                 drawerLayout.openDrawer(GravityCompat.START)
         );
+        if (!MusicManager.isPlaying()) {
+            MusicManager.play(this, R.raw.rain);
+        }
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -67,15 +78,70 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+        speaker.setOnClickListener(v -> showMusicDialog());
     }
     private void initViews() {
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
+        speaker = findViewById(R.id.speakerIcon);
         bottomNav = findViewById(R.id.bottomNav);
         navigationView.setItemIconTintList(null);
         bottomNav.setItemIconTintList(null);
         setSelected(R.id.nav_home);
     }
+
+    private void showMusicDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_music, null);
+        AlertDialog dialog = new AlertDialog.Builder(this, R.style.TransparentDialog)
+                .setView(dialogView)
+                .create();
+        TextView txtCurrent = dialogView.findViewById(R.id.txtCurrentTrack);
+        SwitchCompat swMusic = dialogView.findViewById(R.id.switchMusic);
+        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+        Button btnChangeMusic = dialogView.findViewById(R.id.btnChangeMusic);
+        boolean isPlaying = MusicManager.isPlaying();
+        txtCurrent.setText("Currently playing: " + getTrackName(MusicManager.getCurrentTrack()));
+        swMusic.setChecked(isPlaying);
+        btnChangeMusic.setAlpha(isPlaying ? 1f : 0.4f);
+        btnChangeMusic.setEnabled(isPlaying);
+        swMusic.setOnCheckedChangeListener((btn, checked) -> {
+            if (!checked) {
+                MusicManager.stop();
+                txtCurrent.setText("Currently playing: None");
+                btnChangeMusic.setAlpha(0.4f);
+                btnChangeMusic.setEnabled(false);
+            } else {
+                MusicManager.play(this, R.raw.rain);
+                txtCurrent.setText("Currently playing: " + getTrackName(MusicManager.getCurrentTrack()));
+                btnChangeMusic.setAlpha(1f);
+                btnChangeMusic.setEnabled(true);
+            }
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+        btnChangeMusic.setOnClickListener(v -> {
+            dialog.dismiss();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, new MusicFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(
+                (int) (getResources().getDisplayMetrics().widthPixels * 0.85),
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+    }
+    private String getTrackName(int track) {
+        if (track == R.raw.rain)    return "Rain 🌧️";
+        if (track == R.raw.ambient) return "Ambient 🌿";
+        if (track == R.raw.piano)   return "Piano 🎹";
+        if (track == R.raw.sad)     return "Sad 🌙";
+        return "None";
+    }
+
     private void setupListeners() {
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -87,7 +153,6 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-
             if (navigationView.getCheckedItem() == null ||
                     navigationView.getCheckedItem().getItemId() != id) {
                 item.setChecked(true);
@@ -190,12 +255,9 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
     private void loadAvatar() {
-
         View header = navigationView.getHeaderView(0);
-
         AvatarView avatarView = header.findViewById(R.id.imgAvatar);
         TextView txtName = header.findViewById(R.id.txtName);
-
         AvatarManager.loadInto(avatarView);
         UserManager.loadUsername(txtName);
     }
