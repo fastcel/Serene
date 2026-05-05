@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import androidx.appcompat.app.AlertDialog;
@@ -56,6 +57,32 @@ public class HomeActivity extends AppCompatActivity {
         findViewById(R.id.drawerHandle).setOnClickListener(v ->
                 drawerLayout.openDrawer(GravityCompat.START)
         );
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            StreakManager.updateStreak(user.getUid(), streak -> {
+                showStreakPopup(streak);
+            });
+        }
+
+        findViewById(R.id.fireIcon).setOnClickListener(v -> {
+
+            DatabaseReference ref = FirebaseDatabase.getInstance()
+                    .getReference("users")
+                    .child(FirebaseAuth.getInstance().getUid())
+                    .child("streak");
+
+            ref.get().addOnSuccessListener(snapshot -> {
+
+                int streak = snapshot.child("streakCount").getValue(Integer.class) != null
+                        ? snapshot.child("streakCount").getValue(Integer.class)
+                        : 0;
+
+                showStreakPopup(streak);
+            });
+        });
+
         if (!MusicManager.isPlaying()) {
             MusicManager.play(this, R.raw.rain);
         }
@@ -267,5 +294,20 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadAvatar();
+    }
+
+    private void showStreakPopup(int streak) {
+
+        View view = LayoutInflater.from(this)
+                .inflate(R.layout.dialog_streak, null);
+
+        TextView tv = view.findViewById(R.id.tvStreak);
+        tv.setText("🔥 " + streak + " Day Streak!");
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(true)
+                .show();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 }

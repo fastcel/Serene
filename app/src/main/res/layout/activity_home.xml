@@ -62,8 +62,8 @@
             android:elevation="16dp"
             app:layout_constraintEnd_toEndOf="@id/bottomNav"
             app:layout_constraintBottom_toTopOf="@id/bottomNav"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="-15dp" />
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-18dp" />
 
         <ImageView
             android:id="@+id/fireIcon"
@@ -74,8 +74,8 @@
             android:elevation="16dp"
             app:layout_constraintStart_toStartOf="@id/bottomNav"
             app:layout_constraintBottom_toTopOf="@id/bottomNav"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="-15dp" />
+            android:layout_marginStart="-10dp"
+            android:layout_marginBottom="-18dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
